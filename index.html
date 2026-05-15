@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Imane ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=IM+Fell+English:ital@0;1&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #060314;
+      color: #fff5e1;
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ─────────────────────────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #firefly-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 20px;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.8);
+    }
+
+    .pre-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(13px, 1.8vw, 20px);
+      color: rgba(255, 215, 140, 0.75);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .title-happy {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: clamp(20px, 3.5vw, 48px);
+      color: rgba(255, 225, 155, 0.88);
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      min-height: 1.3em;
+    }
+
+    .title-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(62px, 13vw, 148px);
+      line-height: 1;
+      letter-spacing: 10px;
+      color: #fff8ec;
+      text-shadow:
+        0 0 35px rgba(255, 210, 80, 0.9),
+        0 0 70px rgba(255, 165, 50, 0.55),
+        0 0 120px rgba(255, 100, 30, 0.3),
+        0 4px 24px rgba(0,0,0,0.6);
+      min-height: 1.1em;
+    }
+
+    .title-divider {
+      margin: 22px auto 18px;
+      width: 220px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,205,100,0.55), transparent);
+    }
+
+    .sub-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(15px, 2.2vw, 26px);
+      color: rgba(255, 220, 155, 0.7);
+      letter-spacing: 2px;
+      min-height: 1.5em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      background: rgba(255, 205, 100, 0.85);
+      animation: blink 0.75s step-end infinite;
+      vertical-align: middle;
+      border-radius: 1px;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255, 215, 140, 0.5);
+      font-weight: 300;
+    }
+
+    .scroll-chevron {
+      width: 16px;
+      height: 16px;
+      border-right: 1.5px solid rgba(255, 215, 140, 0.5);
+      border-bottom: 1.5px solid rgba(255, 215, 140, 0.5);
+      transform: rotate(45deg);
+    }
+
+    @keyframes scrollBounce {
+      0%,100%{ transform: translateX(-50%) translateY(0); opacity: 0.6; }
+      50%{ transform: translateX(-50%) translateY(9px); opacity: 1; }
+    }
+
+    /* ── SVG ANIMATIONS ──────────────────── */
+    @keyframes drift1 { from{transform:translateX(-350px)} to{transform:translateX(1800px)} }
+    @keyframes drift2 { from{transform:translateX(-500px)} to{transform:translateX(1940px)} }
+    @keyframes drift3 { from{transform:translateX(-200px)} to{transform:translateX(1650px)} }
+
+    .cloud-a { animation: drift1 42s linear infinite; }
+    .cloud-b { animation: drift2 60s linear infinite 14s; }
+    .cloud-c { animation: drift3 78s linear infinite 30s; }
+
+    @keyframes castleFloat {
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-14px); }
+    }
+    .castle-wrap { animation: castleFloat 8s ease-in-out infinite; }
+
+    @keyframes twinkle {
+      0%,100%{ opacity: 0.1; }
+      50%{ opacity: 1; }
+    }
+
+    @keyframes spiritFloat {
+      0%,100%{ transform: translateY(0) scale(1); opacity: 0.45; }
+      50%{ transform: translateY(-12px) scale(1.1); opacity: 0.75; }
+    }
+    .spirit { animation: spiritFloat 5s ease-in-out infinite; }
+    .spirit2 { animation: spiritFloat 6.5s ease-in-out infinite 1.5s; }
+    .spirit3 { animation: spiritFloat 4.5s ease-in-out infinite 0.8s; }
+
+    /* ── MESSAGES ────────────────────────── */
+    #messages {
+      background: linear-gradient(to bottom, #060314, #10062a 15%, #180a38 55%, #0d1225);
+      padding: 90px 20px 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(11px, 1.4vw, 15px);
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: rgba(255, 200, 100, 0.5);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(22px, 3vw, 36px);
+      color: rgba(255, 215, 140, 0.8);
+      letter-spacing: 3px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .message-card {
+      max-width: 700px;
+      width: 100%;
+      background: linear-gradient(135deg,
+        rgba(255, 180, 80, 0.055) 0%,
+        rgba(160, 80, 220, 0.04) 100%
+      );
+      border: 1px solid rgba(255, 200, 100, 0.12);
+      border-radius: 22px;
+      padding: 52px 44px;
+      margin-bottom: 48px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(55px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .message-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-icon {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 22px;
+      filter: drop-shadow(0 0 8px rgba(255,200,100,0.4));
+    }
+
+    .card-text {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(16px, 1.9vw, 22px);
+      line-height: 2;
+      color: rgba(255, 238, 200, 0.88);
+    }
+
+    .card-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,200,100,0.45), transparent);
+      margin: 26px auto 0;
+    }
+
+    /* ── FINALE ──────────────────────────── */
+    #finale {
+      position: relative;
+      min-height: 100vh;
+      background: #02030e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 20px;
+    }
+
+    .starfield {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* Lanterns */
+    .lantern {
+      position: absolute;
+      bottom: -90px;
+      pointer-events: none;
+    }
+
+    @keyframes lanternRise {
+      0%   { transform: translateY(0) rotate(-4deg);  opacity: 0; }
+      6%   { opacity: 0.9; }
+      88%  { opacity: 0.75; }
+      100% { transform: translateY(-115vh) rotate(6deg); opacity: 0; }
+    }
+
+    .finale-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 740px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .finale-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .finale-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(68px, 14vw, 160px);
+      line-height: 1;
+      letter-spacing: 10px;
+      color: #fffaf0;
+      animation: nameGlow 3.5s ease-in-out infinite;
+    }
+
+    @keyframes nameGlow {
+      0%,100%{
+        text-shadow:
+          0 0 40px rgba(255,210,80,0.85),
+          0 0 80px rgba(255,160,50,0.5),
+          0 0 140px rgba(255,100,20,0.25);
+      }
+      50%{
+        text-shadow:
+          0 0 60px rgba(255,225,100,1),
+          0 0 120px rgba(255,170,60,0.75),
+          0 0 200px rgba(255,110,30,0.4);
+      }
+    }
+
+    .finale-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(20px, 3.2vw, 34px);
+      color: rgba(255, 220, 155, 0.8);
+      margin-top: 22px;
+      letter-spacing: 2px;
+    }
+
+    .finale-divider {
+      width: 160px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,205,100,0.5), transparent);
+      margin: 28px auto;
+    }
+
+    .finale-message {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(15px, 2vw, 21px);
+      color: rgba(255, 205, 155, 0.68);
+      line-height: 2;
+    }
+
+    .finale-heart {
+      margin-top: 36px;
+      font-size: 36px;
+      color: #ff6b9d;
+      animation: heartbeat 2.2s ease-in-out infinite;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(255, 100, 150, 0.7));
+    }
+
+    @keyframes heartbeat {
+      0%,100%{ transform: scale(1); }
+      14%{ transform: scale(1.2); }
+      28%{ transform: scale(1); }
+      42%{ transform: scale(1.12); }
+      56%{ transform: scale(1); }
+    }
+
+    /* ── MUSIC BUTTON ────────────────────── */
+    #music-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 200;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 205, 100, 0.3);
+      background: rgba(10, 5, 28, 0.6);
+      color: rgba(255, 215, 140, 0.75);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    #music-btn:hover {
+      background: rgba(255, 180, 80, 0.18);
+      color: #fff5e1;
+      border-color: rgba(255, 205, 100, 0.6);
+    }
+
+    #music-btn.muted { opacity: 0.45; }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 600px) {
+      .message-card { padding: 36px 24px; }
+      .title-name { letter-spacing: 4px; }
+      .finale-name { letter-spacing: 4px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════
+     HERO — Ghibli landscape
+════════════════════════════════════════ -->
+<section id="hero">
+
+  <svg class="scene-svg"
+       viewBox="0 0 1440 900"
+       preserveAspectRatio="xMidYMid slice"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#040111"/>
+        <stop offset="22%"  stop-color="#18083a"/>
+        <stop offset="50%"  stop-color="#7a2d62"/>
+        <stop offset="72%"  stop-color="#c45b38"/>
+        <stop offset="100%" stop-color="#f0a040"/>
+      </linearGradient>
+
+      <linearGradient id="forestGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#0e3522"/>
+        <stop offset="100%" stop-color="#051410"/>
+      </linearGradient>
+
+      <radialGradient id="moonGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#fff8e1"/>
+        <stop offset="55%"  stop-color="#ffd54f" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#ff8f00" stop-opacity="0"/>
+      </radialGradient>
+
+      <radialGradient id="spiritGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#c8ffcc" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#a0ffb0" stop-opacity="0"/>
+      </radialGradient>
+
+      <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- Sky -->
+    <rect width="1440" height="900" fill="url(#skyGrad)"/>
+
+    <!-- Stars -->
+    <g>
+      <circle cx="68"  cy="38"  r="1.4" fill="#fff" style="animation:twinkle 2.4s ease-in-out infinite 0s"/>
+      <circle cx="160" cy="22"  r="1"   fill="#fff" style="animation:twinkle 3.2s ease-in-out infinite 0.6s"/>
+      <circle cx="295" cy="58"  r="1.8" fill="#fff" style="animation:twinkle 2.7s ease-in-out infinite 1.1s"/>
+      <circle cx="430" cy="28"  r="1.2" fill="#fff" style="animation:twinkle 3.6s ease-in-out infinite 0.3s"/>
+      <circle cx="545" cy="50"  r="1"   fill="#fff" style="animation:twinkle 2.1s ease-in-out infinite 0.9s"/>
+      <circle cx="660" cy="18"  r="1.8" fill="#fff" style="animation:twinkle 4.1s ease-in-out infinite 1.4s"/>
+      <circle cx="820" cy="44"  r="1.3" fill="#fff" style="animation:twinkle 2.8s ease-in-out infinite 0.2s"/>
+      <circle cx="960" cy="30"  r="1"   fill="#fff" style="animation:twinkle 3.3s ease-in-out infinite 0.7s"/>
+      <circle cx="1080" cy="55" r="1.7" fill="#fff" style="animation:twinkle 2.5s ease-in-out infinite 1.6s"/>
+      <circle cx="1230" cy="25" r="1.2" fill="#fff" style="animation:twinkle 3.9s ease-in-out infinite 0.4s"/>
+      <circle cx="1370" cy="48" r="1"   fill="#fff" style="animation:twinkle 2.3s ease-in-out infinite 1s"/>
+      <circle cx="110"  cy="110" r="1"  fill="#fff" style="animation:twinkle 3.1s ease-in-out infinite 1.2s"/>
+      <circle cx="250"  cy="125" r="1.5" fill="#fff" style="animation:twinkle 2.6s ease-in-out infinite 0.5s"/>
+      <circle cx="390"  cy="95"  r="1"  fill="#fff" style="animation:twinkle 3.5s ease-in-out infinite 1.4s"/>
+      <circle cx="520"  cy="140" r="1.8" fill="#fff" style="animation:twinkle 2.9s ease-in-out infinite 0.1s"/>
+      <circle cx="670"  cy="85"  r="1"  fill="#fff" style="animation:twinkle 3.7s ease-in-out infinite 0.8s"/>
+      <circle cx="800"  cy="120" r="1.4" fill="#fff" style="animation:twinkle 2.4s ease-in-out infinite 1.3s"/>
+      <circle cx="940"  cy="95"  r="1"  fill="#fff" style="animation:twinkle 4s   ease-in-out infinite 0.6s"/>
+      <circle cx="1060" cy="128" r="1.8" fill="#fff" style="animation:twinkle 2.7s ease-in-out infinite 0.9s"/>
+      <circle cx="1190" cy="90"  r="1"  fill="#fff" style="animation:twinkle 3.4s ease-in-out infinite 1.7s"/>
+      <circle cx="1330" cy="112" r="1.5" fill="#fff" style="animation:twinkle 2.2s ease-in-out infinite 0.3s"/>
+      <circle cx="50"   cy="172" r="1"  fill="#fff" style="animation:twinkle 3.8s ease-in-out infinite 1s"/>
+      <circle cx="195"  cy="198" r="1.4" fill="#fff" style="animation:twinkle 2.3s ease-in-out infinite 1.3s"/>
+      <circle cx="340"  cy="170" r="1"  fill="#fff" style="animation:twinkle 3s   ease-in-out infinite 0.4s"/>
+      <circle cx="490"  cy="205" r="1.6" fill="#fff" style="animation:twinkle 2.8s ease-in-out infinite 0.8s"/>
+      <circle cx="740"  cy="185" r="1.3" fill="#fff" style="animation:twinkle 3.6s ease-in-out infinite 0.2s"/>
+      <circle cx="890"  cy="165" r="1"  fill="#fff" style="animation:twinkle 2.5s ease-in-out infinite 1.5s"/>
+      <circle cx="1020" cy="200" r="1.7" fill="#fff" style="animation:twinkle 3.2s ease-in-out infinite 0.7s"/>
+      <circle cx="1165" cy="160" r="1"  fill="#fff" style="animation:twinkle 4.2s ease-in-out infinite 1.2s"/>
+      <circle cx="1305" cy="188" r="1.4" fill="#fff" style="animation:twinkle 2.9s ease-in-out infinite 0.3s"/>
+      <circle cx="1420" cy="170" r="1"  fill="#fff" style="animation:twinkle 3.3s ease-in-out infinite 0.9s"/>
+    </g>
+
+    <!-- Crescent moon -->
+    <g filter="url(#glow)">
+      <circle cx="1170" cy="115" r="58" fill="url(#moonGrad)"/>
+      <circle cx="1190" cy="100" r="54" fill="#18083a" opacity="0.88"/>
+    </g>
+
+    <!-- Distant haze cloud (behind mountains) -->
+    <g class="cloud-c" opacity="0.2">
+      <ellipse cx="500" cy="340" rx="130" ry="38" fill="#f0b898"/>
+      <ellipse cx="565" cy="318" rx="90"  ry="30" fill="#f0b898"/>
+      <ellipse cx="430" cy="330" rx="75"  ry="26" fill="#f0b898"/>
+    </g>
+
+    <!-- Far mountains — dark purple -->
+    <path d="
+      M-10,605
+      L 80,390 L145,462 L225,318 L308,445 L405,290 L488,418
+      L572,338 L665,468 L765,298 L858,428 L955,282 L1055,418
+      L1152,302 L1252,430 L1358,340 L1450,395
+      L1450,905 L-10,905 Z"
+      fill="#1e0940" opacity="0.95"/>
+
+    <!-- Second mountain range — slightly lighter -->
+    <path d="
+      M-10,660
+      L 68,495 L148,565 L245,438 L360,548 L462,428 L562,538
+      L680,405 L792,525 L902,395 L1012,518 L1122,405 L1235,518
+      L1342,428 L1450,488
+      L1450,905 L-10,905 Z"
+      fill="#150c32" opacity="0.95"/>
+
+    <!-- Howl's Moving Castle -->
+    <g class="castle-wrap" filter="url(#softGlow)">
+      <!-- Castle base structure -->
+      <rect x="574" y="255" width="170" height="108" rx="4" fill="#291545"/>
+      <!-- Left wing -->
+      <rect x="502" y="280" width="82"  height="83"  rx="3" fill="#221240"/>
+      <!-- Right wing -->
+      <rect x="734" y="265" width="92"  height="98"  rx="3" fill="#221240"/>
+      <!-- Far right extension -->
+      <rect x="816" y="282" width="54"  height="81"  rx="2" fill="#1c0f36"/>
+
+      <!-- Towers left-outer -->
+      <rect x="518" y="242" width="34"  height="48"  rx="2" fill="#291545"/>
+      <polygon points="518,242 552,242 535,208" fill="#3a1e5c"/>
+
+      <!-- Tower left-inner -->
+      <rect x="585" y="200" width="38"  height="62"  rx="2" fill="#291545"/>
+      <polygon points="585,200 623,200 604,162" fill="#3a1e5c"/>
+
+      <!-- Tallest center tower -->
+      <rect x="645" y="172" width="48"  height="92"  rx="2" fill="#321858"/>
+      <polygon points="643,172 695,172 669,128" fill="#4a2872"/>
+      <!-- Tower flag -->
+      <line x1="669" y1="128" x2="669" y2="112" stroke="#5a3880" stroke-width="2"/>
+      <polygon points="669,112 685,120 669,128" fill="#7a4a99" opacity="0.8"/>
+
+      <!-- Tower right-inner -->
+      <rect x="710" y="208" width="36"  height="58"  rx="2" fill="#291545"/>
+      <polygon points="710,208 746,208 728,172" fill="#3a1e5c"/>
+
+      <!-- Tower right-outer -->
+      <rect x="756" y="230" width="32"  height="48"  rx="2" fill="#291545"/>
+      <polygon points="756,230 788,230 772,200" fill="#3a1e5c"/>
+
+      <!-- Far right small tower -->
+      <rect x="830" y="258" width="26"  height="38"  rx="2" fill="#1c0f36"/>
+      <polygon points="830,258 856,258 843,234" fill="#2a1845"/>
+
+      <!-- Warm lit windows -->
+      <rect x="595" y="270" width="20" height="26" rx="3" fill="#ffd54f" opacity="0.9" filter="url(#glow)"/>
+      <rect x="634" y="270" width="20" height="26" rx="3" fill="#ffb300" opacity="0.88" filter="url(#glow)"/>
+      <rect x="673" y="270" width="20" height="26" rx="3" fill="#ffd54f" opacity="0.9" filter="url(#glow)"/>
+      <rect x="528" y="296" width="16" height="20" rx="2" fill="#ffa726" opacity="0.78" filter="url(#glow)"/>
+      <rect x="746" y="285" width="16" height="20" rx="2" fill="#ffd54f" opacity="0.78" filter="url(#glow)"/>
+      <rect x="828" y="298" width="14" height="18" rx="2" fill="#ffa726" opacity="0.68" filter="url(#glow)"/>
+      <rect x="660" y="208" width="16" height="20" rx="2" fill="#ffe082" opacity="0.75" filter="url(#glow)"/>
+
+      <!-- Walking legs -->
+      <line x1="608" y1="363" x2="580" y2="432" stroke="#1a0930" stroke-width="13" stroke-linecap="round"/>
+      <line x1="644" y1="363" x2="648" y2="438" stroke="#1a0930" stroke-width="13" stroke-linecap="round"/>
+      <line x1="682" y1="363" x2="714" y2="425" stroke="#1a0930" stroke-width="12" stroke-linecap="round"/>
+      <line x1="718" y1="363" x2="752" y2="430" stroke="#1a0930" stroke-width="12" stroke-linecap="round"/>
+      <!-- Foot stumps -->
+      <ellipse cx="580" cy="432" rx="10" ry="5" fill="#120622" opacity="0.6"/>
+      <ellipse cx="648" cy="438" rx="10" ry="5" fill="#120622" opacity="0.6"/>
+      <ellipse cx="714" cy="425" rx="10" ry="5" fill="#120622" opacity="0.6"/>
+      <ellipse cx="752" cy="430" rx="10" ry="5" fill="#120622" opacity="0.6"/>
+
+      <!-- Smoke from chimney -->
+      <ellipse cx="669" cy="115" rx="14" ry="8"  fill="#3a2060" opacity="0.45"/>
+      <ellipse cx="660" cy="100" rx="11" ry="7"  fill="#3a2060" opacity="0.32"/>
+      <ellipse cx="665" cy="87"  rx="9"  ry="6"  fill="#3a2060" opacity="0.20"/>
+    </g>
+
+    <!-- Mid-level warm clouds -->
+    <g class="cloud-a" opacity="0.38">
+      <ellipse cx="180" cy="465" rx="108" ry="30" fill="#ee9870"/>
+      <ellipse cx="245" cy="443" rx="76"  ry="24" fill="#ee9870"/>
+      <ellipse cx="115" cy="455" rx="65"  ry="22" fill="#ee9870"/>
+    </g>
+    <g class="cloud-b" opacity="0.32">
+      <ellipse cx="920" cy="492" rx="135" ry="34" fill="#e57a52"/>
+      <ellipse cx="992" cy="468" rx="96"  ry="27" fill="#e57a52"/>
+      <ellipse cx="845" cy="480" rx="84"  ry="26" fill="#e57a52"/>
+    </g>
+
+    <!-- Left forest cluster -->
+    <path d="
+      M-10,740
+      C 25,705 55,685 80,710
+      C100,672 125,658 148,688
+      C168,648 192,638 218,668
+      C240,645 268,632 298,662
+      C325,638 362,622 400,658
+      C438,632 478,620 508,655
+      L508,905 L-10,905 Z"
+      fill="url(#forestGrad)"/>
+
+    <!-- Right forest cluster -->
+    <path d="
+      M932,740
+      C962,705 995,680 1022,712
+      C1045,672 1072,650 1098,682
+      C1120,645 1148,632 1175,665
+      C1198,640 1228,625 1258,658
+      C1285,634 1318,620 1348,655
+      C1375,630 1408,618 1438,645
+      L1450,658 L1450,905 L932,905 Z"
+      fill="url(#forestGrad)"/>
+
+    <!-- Rolling hills — mid -->
+    <path d="
+      M-10,795
+      Q 170,730 340,768
+      Q 520,705 700,748
+      Q 880,705 1060,748
+      Q 1240,705 1450,738
+      L1450,905 L-10,905 Z"
+      fill="#1a4830"/>
+
+    <!-- Near hill — darker -->
+    <path d="
+      M-10,845
+      Q 200,812 400,832
+      Q 605,800 810,828
+      Q1010,796 1215,822
+      Q1355,800 1450,812
+      L1450,905 L-10,905 Z"
+      fill="#0f3320"/>
+
+    <!-- Foreground dark band -->
+    <path d="
+      M-10,875
+      Q 300,860 600,870
+      Q 900,855 1200,867
+      Q1355,858 1450,862
+      L1450,905 L-10,905 Z"
+      fill="#071810"/>
+
+    <!-- Flower & grass accents -->
+    <g opacity="0.72">
+      <circle cx="98"   cy="869" r="3"   fill="#ff79a8"/>
+      <circle cx="112"  cy="863" r="2"   fill="#ffc66e"/>
+      <circle cx="88"   cy="861" r="2.5" fill="#ff79a8"/>
+      <circle cx="210"  cy="873" r="3"   fill="#ffd54f"/>
+      <circle cx="225"  cy="865" r="2"   fill="#ff79a8"/>
+      <circle cx="358"  cy="870" r="3"   fill="#ff79a8"/>
+      <circle cx="373"  cy="864" r="2.5" fill="#ffd54f"/>
+      <circle cx="505"  cy="875" r="3"   fill="#ffc66e"/>
+      <circle cx="655"  cy="870" r="2.5" fill="#ff79a8"/>
+      <circle cx="805"  cy="872" r="3"   fill="#ffd54f"/>
+      <circle cx="950"  cy="868" r="2"   fill="#ff79a8"/>
+      <circle cx="1108" cy="873" r="3"   fill="#ffc66e"/>
+      <circle cx="1258" cy="868" r="2.5" fill="#ff79a8"/>
+      <circle cx="1388" cy="870" r="3"   fill="#ffd54f"/>
+    </g>
+
+    <!-- Spirit orbs (Mononoke / Totoro) -->
+    <g filter="url(#glow)">
+      <circle class="spirit"  cx="308"  cy="758" r="9"  fill="url(#spiritGlow)"/>
+      <circle class="spirit"  cx="318"  cy="752" r="4.5" fill="rgba(210,255,220,0.9)"/>
+      <circle class="spirit2" cx="1112" cy="762" r="7"  fill="url(#spiritGlow)"/>
+      <circle class="spirit2" cx="1120" cy="757" r="3.5" fill="rgba(210,255,220,0.9)"/>
+      <circle class="spirit3" cx="710"  cy="770" r="6"  fill="url(#spiritGlow)"/>
+      <circle class="spirit3" cx="717"  cy="765" r="3"  fill="rgba(210,255,220,0.9)"/>
+    </g>
+  </svg>
+
+  <!-- Firefly canvas -->
+  <canvas id="firefly-canvas"></canvas>
+
+  <!-- Title text -->
+  <div class="hero-content">
+    <p class="pre-title">A Story Written in Starlight</p>
+    <div class="title-happy" id="title-happy"></div>
+    <div class="title-name"  id="title-name"></div>
+    <div class="title-divider"></div>
+    <p class="sub-title" id="sub-title"></p>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-chevron"></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     MESSAGES
+════════════════════════════════════════ -->
+<section id="messages">
+  <p class="section-eyebrow">For You, Always</p>
+  <h2 class="section-title">Words From the Heart</h2>
+
+  <div class="message-card">
+    <span class="card-icon">✦</span>
+    <p class="card-text">
+      "In every world the spirits have ever woven — across every enchanted sky,
+      every ancient forest, every golden field stretching past the horizon —
+      there is only one you. And no story, no matter how beautiful,
+      has ever deserved you as much as this one does."
+    </p>
+    <div class="card-line"></div>
+  </div>
+
+  <div class="message-card">
+    <span class="card-icon">🌸</span>
+    <p class="card-text">
+      "Like the lanterns drifting above the spirit world — quiet, glowing,
+      impossible to ignore — you light every room you walk into.
+      Your warmth is not just seen. It is felt deep in the bones,
+      the way magic is felt before it is ever understood."
+    </p>
+    <div class="card-line"></div>
+  </div>
+
+  <div class="message-card">
+    <span class="card-icon">🏰</span>
+    <p class="card-text">
+      "Howl searched kingdoms, crossed every sky, wore a hundred faces —
+      and still, I think he would have stopped mid-flight if he had ever met you.
+      Some people make the whole world pause.
+      You, Imane, are one of those people."
+    </p>
+    <div class="card-line"></div>
+  </div>
+
+  <div class="message-card">
+    <span class="card-icon">🌿</span>
+    <p class="card-text">
+      "The ancient forest spirits whisper to those who are worthy.
+      They carry the names of rare souls to the roots of old trees,
+      and the trees carry them all the way to the sea.
+      I believe they have always known yours."
+    </p>
+    <div class="card-line"></div>
+  </div>
+
+  <div class="message-card">
+    <span class="card-icon">⭐</span>
+    <p class="card-text">
+      "Another year around a sun that has never once shone on anyone quite like you.
+      You are my favourite adventure, my favourite place to return to,
+      my favourite story in a world full of stories.
+      Happy Birthday, Imane — today, and every single day."
+    </p>
+    <div class="card-line"></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FINALE — Night sky & lanterns
+════════════════════════════════════════ -->
+<section id="finale">
+
+  <div class="starfield" id="starfield"></div>
+
+  <!-- Rising lanterns -->
+  <div class="lantern" style="left:6%;  animation:lanternRise 14s ease-in infinite 0s;">
+    <svg viewBox="0 0 50 80" width="34" height="54">
+      <defs>
+        <radialGradient id="lg0" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffee58"/>
+          <stop offset="100%" stop-color="#ff6f00"/>
+        </radialGradient>
+      </defs>
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="url(#lg0)" opacity="0.88"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#e64a19"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#e64a19"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.52"/>
+    </svg>
+  </div>
+
+  <div class="lantern" style="left:20%; animation:lanternRise 17s ease-in infinite 2.5s;">
+    <svg viewBox="0 0 50 80" width="26" height="42">
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="#ff8f00" opacity="0.82"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#e64a19"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#e64a19"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.48"/>
+    </svg>
+  </div>
+
+  <div class="lantern" style="left:38%; animation:lanternRise 19s ease-in infinite 5s;">
+    <svg viewBox="0 0 50 80" width="42" height="66">
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="#ffb300" opacity="0.92"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#e64a19"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#e64a19"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.58"/>
+    </svg>
+  </div>
+
+  <div class="lantern" style="left:55%; animation:lanternRise 13s ease-in infinite 1s;">
+    <svg viewBox="0 0 50 80" width="30" height="48">
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="#ff6d00" opacity="0.82"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#bf360c"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#bf360c"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="lantern" style="left:72%; animation:lanternRise 16s ease-in infinite 7s;">
+    <svg viewBox="0 0 50 80" width="38" height="60">
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="#ffca28" opacity="0.88"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#e64a19"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#e64a19"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <div class="lantern" style="left:88%; animation:lanternRise 15s ease-in infinite 3.5s;">
+    <svg viewBox="0 0 50 80" width="28" height="44">
+      <rect x="9" y="14" width="32" height="46" rx="7" fill="#ff8f00" opacity="0.8"/>
+      <rect x="17" y="4"  width="16" height="12" rx="3" fill="#e64a19"/>
+      <rect x="21" y="58" width="8"  height="14" rx="2" fill="#e64a19"/>
+      <ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.48"/>
+    </svg>
+  </div>
+
+  <!-- Final message -->
+  <div class="finale-content" id="finale-content">
+    <div class="finale-name">Imane</div>
+    <div class="finale-subtitle">Happy Birthday, my love</div>
+    <div class="finale-divider"></div>
+    <div class="finale-message">
+      May this year carry you to every beautiful thing<br>
+      you have ever quietly wished for.<br>
+      May you feel, today and always,<br>
+      how deeply, how completely you are loved.
+    </div>
+    <span class="finale-heart">♥</span>
+  </div>
+</section>
+
+
+<!-- Music -->
+<!--
+  To enable background music:
+  1. Download a royalty-free ambient piano track (e.g. from https://freemusicarchive.org)
+  2. Save it as music.mp3 in this same folder
+  3. The ♪ button in the corner will play/pause it
+-->
+<button id="music-btn" class="muted" title="Toggle music">♪</button>
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+/* ─── TYPEWRITER ───────────────────────────────── */
+function typewriter(el, text, speed, onDone) {
+  let i = 0;
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  cur.style.cssText = 'height:0.75em; width:2px;';
+  el.textContent = '';
+  el.appendChild(cur);
+
+  (function type() {
+    if (i < text.length) {
+      cur.before(text[i++]);
+      setTimeout(type, speed + Math.random() * 28);
+    } else {
+      cur.style.animation = 'none';
+      cur.style.opacity = '0';
+      if (onDone) setTimeout(onDone, 300);
+    }
+  })();
+}
+
+window.addEventListener('load', () => {
+  const happy = document.getElementById('title-happy');
+  const name  = document.getElementById('title-name');
+  const sub   = document.getElementById('sub-title');
+
+  setTimeout(() => {
+    typewriter(happy, 'Happy Birthday', 85, () => {
+      typewriter(name, 'Imane', 110, () => {
+        typewriter(sub, 'This day was made for you  ✦', 55);
+      });
+    });
+  }, 700);
+});
+
+
+/* ─── FIREFLIES ────────────────────────────────── */
+(function () {
+  const cvs = document.getElementById('firefly-canvas');
+  const ctx = cvs.getContext('2d');
+  let W, H, flies;
+
+  function resize() {
+    W = cvs.width  = window.innerWidth;
+    H = cvs.height = window.innerHeight;
+  }
+
+  const COLORS = ['#ffe066', '#a8ffb0', '#ffc8a0', '#d0f0ff'];
+
+  class Fly {
+    constructor() {
+      this.reset(true);
+    }
+    reset(init) {
+      this.x    = Math.random() * (W || 800);
+      this.y    = init
+        ? Math.random() * (H || 600)
+        : (Math.random() * (H * 0.65) + H * 0.3);
+      this.vx   = (Math.random() - 0.5) * 0.55;
+      this.vy   = (Math.random() - 0.5) * 0.38;
+      this.r    = Math.random() * 1.6 + 0.7;
+      this.phase = Math.random() * Math.PI * 2;
+      this.spd  = Math.random() * 0.014 + 0.007;
+      this.col  = COLORS[Math.floor(Math.random() * COLORS.length)];
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (Math.random() < 0.022) {
+        this.vx += (Math.random() - 0.5) * 0.14;
+        this.vy += (Math.random() - 0.5) * 0.10;
+        this.vx = Math.max(-1, Math.min(1, this.vx));
+        this.vy = Math.max(-0.8, Math.min(0.8, this.vy));
+      }
+      this.phase += this.spd;
+      if (this.x < -20 || this.x > W + 20 || this.y > H + 20) this.reset(false);
+      if (this.y < H * 0.15) this.vy = Math.abs(this.vy);
+    }
+    draw() {
+      const a = (Math.sin(this.phase) * 0.5 + 0.5) * 0.88;
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.shadowBlur  = 14;
+      ctx.shadowColor = this.col;
+      ctx.fillStyle   = this.col;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = a * 0.18;
+      ctx.shadowBlur  = 0;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function init() {
+    resize();
+    flies = Array.from({ length: 80 }, () => new Fly());
+  }
+
+  (function loop() {
+    ctx.clearRect(0, 0, W, H);
+    flies.forEach(f => { f.update(); f.draw(); });
+    requestAnimationFrame(loop);
+  })();
+
+  window.addEventListener('resize', resize, { passive: true });
+  init();
+})();
+
+
+/* ─── SCROLL REVEAL (messages + finale) ────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.14 });
+
+document.querySelectorAll('.message-card, #finale-content')
+  .forEach(el => revealObs.observe(el));
+
+
+/* ─── STARFIELD (finale) ────────────────────────── */
+(function () {
+  const field = document.getElementById('starfield');
+  for (let i = 0; i < 220; i++) {
+    const s   = document.createElement('div');
+    const sz  = Math.random() * 2.4 + 0.4;
+    const dur = (Math.random() * 3 + 1.8).toFixed(2);
+    const del = (Math.random() * 6).toFixed(2);
+    s.style.cssText = `
+      position:absolute;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${sz}px; height:${sz}px;
+      background:#fff;
+      border-radius:50%;
+      animation:twinkle ${dur}s ease-in-out infinite ${del}s;
+    `;
+    field.appendChild(s);
+  }
+})();
+
+
+/* ─── MUSIC ─────────────────────────────────────── */
+const audio = document.getElementById('bg-music');
+const btn   = document.getElementById('music-btn');
+let playing = false;
+
+btn.addEventListener('click', () => {
+  if (playing) {
+    audio.pause();
+    btn.textContent = '♪';
+    btn.classList.add('muted');
+  } else {
+    audio.play().catch(() => {});
+    btn.textContent = '♫';
+    btn.classList.remove('muted');
+  }
+  playing = !playing;
+});
+</script>
+
+</body>
+</html>
