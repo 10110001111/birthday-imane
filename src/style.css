@@ -68,11 +68,34 @@ body {
   inset: 0;
 }
 
-#fuji-svg {
+#fuji-photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+#fuji-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 210, 220, 0.18) 0%,
+    rgba(255, 220, 230, 0.10) 50%,
+    rgba(255, 240, 245, 0.25) 100%
+  );
+  z-index: 1;
+}
+
+#fuji-clouds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* ── Birds ── */
@@ -81,7 +104,7 @@ body {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 2;
+  z-index: 3;
 }
 
 .bird-group {
@@ -120,7 +143,7 @@ body {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 3;
+  z-index: 4;
 }
 #main-sakura {
   position: fixed;
@@ -153,10 +176,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 4;
+  z-index: 5;
   padding: 20px;
-  /* Push form slightly up so Fuji/trees are visible below */
-  padding-bottom: 22vh;
+  padding-bottom: 10vh;
 }
 
 .entry-card {
