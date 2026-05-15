@@ -27,159 +27,437 @@
 
     <div id="entry-bg">
 
-      <!-- Fuji + sky + trees (base layer) -->
+      <!-- ── Fuji landscape (rich, layered) ── -->
       <svg id="fuji-svg" viewBox="0 0 1440 700"
            preserveAspectRatio="xMidYMax slice"
            xmlns="http://www.w3.org/2000/svg">
         <defs>
+
+          <!-- Rich multi-stop dawn sky -->
           <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#B4D0E8"/>
-            <stop offset="32%"  stop-color="#D0BCDA"/>
-            <stop offset="62%"  stop-color="#EDD0C4"/>
-            <stop offset="100%" stop-color="#F5E0D0"/>
+            <stop offset="0%"   stop-color="#7AAACF"/>
+            <stop offset="10%"  stop-color="#92B8D8"/>
+            <stop offset="22%"  stop-color="#B0C8DC"/>
+            <stop offset="35%"  stop-color="#C8B8D6"/>
+            <stop offset="50%"  stop-color="#DAB8C8"/>
+            <stop offset="64%"  stop-color="#E8C8B4"/>
+            <stop offset="78%"  stop-color="#F0D4B4"/>
+            <stop offset="100%" stop-color="#F8E2C8"/>
           </linearGradient>
-          <linearGradient id="fujiG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#9AB4CC"/>
-            <stop offset="100%" stop-color="#6E90A8"/>
+
+          <!-- Warm horizon glow (sun behind Fuji) -->
+          <radialGradient id="horizonG" cx="50%" cy="98%" r="58%">
+            <stop offset="0%"   stop-color="#FFD4A0" stop-opacity="0.62"/>
+            <stop offset="42%"  stop-color="#FFB07A" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#FF7844" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Fuji shading: lit left side -->
+          <linearGradient id="fujiG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stop-color="#AABFD6"/>
+            <stop offset="48%"  stop-color="#8AAFC8"/>
+            <stop offset="100%" stop-color="#628098"/>
           </linearGradient>
-          <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1">
+
+          <!-- Snow: natural white with slight blue shadow -->
+          <linearGradient id="snowG" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%"   stop-color="#FFFFFF"/>
-            <stop offset="100%" stop-color="#EEE8F2" stop-opacity="0.8"/>
+            <stop offset="55%"  stop-color="#F4EEF8"/>
+            <stop offset="100%" stop-color="#DDE8F4"/>
           </linearGradient>
+
+          <!-- Lake: reflects sky and Fuji -->
           <linearGradient id="lakeG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#C4D8E8"/>
-            <stop offset="100%" stop-color="#D8EEF8"/>
+            <stop offset="0%"   stop-color="#B8D0E4"/>
+            <stop offset="50%"  stop-color="#C8DCEC"/>
+            <stop offset="100%" stop-color="#D8EAF4"/>
           </linearGradient>
+
+          <!-- Meadow ground -->
+          <linearGradient id="groundG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#B0C49A"/>
+            <stop offset="100%" stop-color="#C4D4A8"/>
+          </linearGradient>
+
+          <!-- Far hills: desaturated lavender -->
           <linearGradient id="hillG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#B8C8A4"/>
-            <stop offset="100%" stop-color="#C8D8B4"/>
+            <stop offset="0%"   stop-color="#BEB0CC"/>
+            <stop offset="100%" stop-color="#D0C4D8"/>
           </linearGradient>
-          <filter id="softBlur">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+
+          <!-- ── SVG Filters ── -->
+
+          <!-- Soft blur for clouds -->
+          <filter id="f-cloud" x="-20%" y="-30%" width="140%" height="160%">
+            <feGaussianBlur stdDeviation="5"/>
           </filter>
+
+          <!-- Stronger blur for distant haze -->
+          <filter id="f-haze" x="-25%" y="-25%" width="150%" height="150%">
+            <feGaussianBlur stdDeviation="14"/>
+          </filter>
+
+          <!-- Mist at mountain base -->
+          <filter id="f-mist" x="-30%" y="-40%" width="160%" height="180%">
+            <feGaussianBlur stdDeviation="18" result="blur"/>
+            <feColorMatrix type="matrix"
+              values="1 0 0 0 0.06  0 1 0 0 0.04  0 0 1 0 0.10  0 0 0 0.65 0"
+              in="blur"/>
+          </filter>
+
+          <!-- Painterly displacement for tree blossoms -->
+          <filter id="f-paint" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="8" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5"
+              xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+
+          <!-- Water ripple for lake reflection -->
+          <filter id="f-ripple" x="-5%" y="-15%" width="110%" height="130%">
+            <feTurbulence type="turbulence" baseFrequency="0 0.08" numOctaves="2" seed="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3"
+              xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+
+          <!-- Slight glow for torii -->
+          <filter id="f-torii-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+
         </defs>
 
-        <!-- Sky -->
+        <!-- ── SKY ── -->
         <rect width="1440" height="700" fill="url(#skyG)"/>
+        <!-- Warm horizon glow -->
+        <rect width="1440" height="700" fill="url(#horizonG)"/>
 
-        <!-- Distant hills (misty) -->
-        <path d="M0,530 Q240,492 480,510 Q720,490 960,508 Q1200,490 1440,510 L1440,700 L0,700 Z"
-              fill="#C0AECB" opacity="0.38"/>
-
-        <!-- Mount Fuji body -->
-        <path d="M460,470 L720,110 L980,470 Z"
-              fill="url(#fujiG)"/>
-
-        <!-- Snow cap -->
-        <path d="M676,148 Q720,110 764,148 Q750,192 726,202 Q720,204 714,202 Q690,192 676,148 Z"
-              fill="url(#snowG)"/>
-
-        <!-- Fuji misty lower base -->
-        <path d="M360,520 Q460,470 720,482 Q980,470 1080,520 L1440,540 L0,540 Z"
-              fill="#8AA8C0" opacity="0.30"/>
-
-        <!-- Ground / meadow -->
-        <path d="M0,578 Q360,552 720,566 Q1080,552 1440,578 L1440,700 L0,700 Z"
-              fill="url(#hillG)"/>
-
-        <!-- Lake -->
-        <path d="M140,615 Q720,595 1300,615 L1440,645 L0,645 Z"
-              fill="url(#lakeG)" opacity="0.85"/>
-
-        <!-- Fuji lake reflection (very subtle) -->
-        <path d="M628,636 L720,604 L812,636 Z"
-              fill="#98B8CC" opacity="0.25"/>
-
-        <!-- ── Cherry trees LEFT ── -->
-        <!-- Tree L1 (largest) -->
-        <g>
-          <rect x="148" y="544" width="9" height="68" fill="#9B7A5A" rx="3"/>
-          <line x1="152" y1="570" x2="124" y2="548" stroke="#9B7A5A" stroke-width="5" stroke-linecap="round"/>
-          <line x1="152" y1="564" x2="182" y2="543" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="152" cy="524" r="34" fill="#FFC0CC" opacity="0.88"/>
-          <circle cx="126" cy="537" r="25" fill="#FFD0D8" opacity="0.82"/>
-          <circle cx="180" cy="531" r="27" fill="#FFC8D4" opacity="0.84"/>
-          <circle cx="142" cy="506" r="21" fill="#FFCAD8" opacity="0.76"/>
-          <circle cx="166" cy="504" r="19" fill="#FFB4C4" opacity="0.80"/>
+        <!-- ── DISTANT HAZE LAYER ── -->
+        <g filter="url(#f-haze)" opacity="0.42">
+          <ellipse cx="720" cy="500" rx="620" ry="90" fill="#E8D8E4"/>
+          <ellipse cx="300" cy="510" rx="300" ry="60" fill="#DFD2E8"/>
+          <ellipse cx="1160" cy="512" rx="310" ry="60" fill="#DFD2E8"/>
         </g>
+
+        <!-- ── FAR HILLS (atmospheric — lightest, most desaturated) ── -->
+        <path d="M0,530 Q180,492 360,510 Q540,488 720,506 Q900,488 1080,506 Q1260,490 1440,512 L1440,700 L0,700 Z"
+              fill="url(#hillG)" opacity="0.38"/>
+        <!-- Second hill layer -->
+        <path d="M0,555 Q200,520 400,538 Q600,514 800,534 Q1000,514 1200,534 Q1380,518 1440,536 L1440,700 L0,700 Z"
+              fill="#CAB8D2" opacity="0.30"/>
+
+        <!-- ── CLOUDS (layered, blurred, detailed) ── -->
+
+        <!-- Back clouds (smaller, more desaturated) -->
+        <g filter="url(#f-cloud)" opacity="0.55">
+          <ellipse cx="840" cy="225" rx="58" ry="20" fill="white"/>
+          <ellipse cx="878" cy="212" rx="38" ry="17" fill="white"/>
+          <ellipse cx="806" cy="218" rx="36" ry="16" fill="white"/>
+        </g>
+        <g filter="url(#f-cloud)" opacity="0.45">
+          <ellipse cx="480" cy="275" rx="52" ry="18" fill="white"/>
+          <ellipse cx="514" cy="260" rx="34" ry="15" fill="white"/>
+          <ellipse cx="450" cy="268" rx="32" ry="14" fill="white"/>
+        </g>
+
+        <!-- Cloud A (left, main) — animated -->
+        <g class="cloud-a" filter="url(#f-cloud)" opacity="0.94">
+          <ellipse cx="245" cy="196" rx="88" ry="30" fill="white"/>
+          <ellipse cx="295" cy="175" rx="64" ry="27" fill="white"/>
+          <ellipse cx="200" cy="186" rx="55" ry="24" fill="white"/>
+          <ellipse cx="268" cy="156" rx="45" ry="22" fill="white"/>
+          <ellipse cx="314" cy="163" rx="34" ry="19" fill="white"/>
+          <ellipse cx="224" cy="166" rx="38" ry="20" fill="white"/>
+          <!-- Soft shadow base -->
+          <ellipse cx="252" cy="214" rx="82" ry="16" fill="#D8C8D8" opacity="0.28"/>
+        </g>
+
+        <!-- Cloud B (right, main) — animated -->
+        <g class="cloud-b" filter="url(#f-cloud)" opacity="0.84">
+          <ellipse cx="1096" cy="162" rx="96" ry="32" fill="white"/>
+          <ellipse cx="1154" cy="142" rx="68" ry="27" fill="white"/>
+          <ellipse cx="1044" cy="154" rx="60" ry="24" fill="white"/>
+          <ellipse cx="1120" cy="122" rx="50" ry="24" fill="white"/>
+          <ellipse cx="1165" cy="128" rx="38" ry="20" fill="white"/>
+          <ellipse cx="1070" cy="132" rx="42" ry="22" fill="white"/>
+          <ellipse cx="1105" cy="180" rx="88" ry="16" fill="#D8C8D8" opacity="0.25"/>
+        </g>
+
+        <!-- Cloud C (center, wispy) — animated -->
+        <g class="cloud-c" filter="url(#f-cloud)" opacity="0.70">
+          <ellipse cx="562" cy="250" rx="72" ry="23" fill="white"/>
+          <ellipse cx="606" cy="234" rx="48" ry="19" fill="white"/>
+          <ellipse cx="520" cy="243" rx="42" ry="18" fill="white"/>
+          <ellipse cx="578" cy="220" rx="36" ry="17" fill="white"/>
+        </g>
+
+        <!-- ── MOUNT FUJI ── -->
+
+        <!-- Fuji base atmospheric shadow (very soft) -->
+        <ellipse cx="720" cy="472" rx="320" ry="50"
+                 fill="#7888A8" opacity="0.18" filter="url(#f-haze)"/>
+
+        <!-- Fuji main body -->
+        <path d="M460,472 L720,110 L980,472 Z" fill="url(#fujiG)"/>
+
+        <!-- Fuji right-side shadow (shading from light left, dark right) -->
+        <path d="M720,110 L980,472 L800,472 L720,195 Z"
+              fill="#4A6880" opacity="0.24"/>
+        <!-- Deeper shadow ridge on right -->
+        <path d="M720,110 L980,472 L900,472 L720,240 Z"
+              fill="#3A5870" opacity="0.12"/>
+
+        <!-- Fuji subtle texture / rock face hints -->
+        <path d="M620,380 Q680,355 720,360 Q760,355 820,380 L800,420 Q760,400 720,405 Q680,400 640,420 Z"
+              fill="#6A8AA0" opacity="0.14"/>
+        <path d="M560,432 Q640,408 720,414 Q800,408 880,432 L860,460 Q800,440 720,445 Q640,440 580,460 Z"
+              fill="#5A7A98" opacity="0.12"/>
+
+        <!-- Snow cap — organic, natural shape -->
+        <path d="M684,148 Q698,128 710,118 L720,110 L730,118 Q742,128 756,148
+                 Q768,172 762,190 Q752,208 736,216 Q728,220 720,221
+                 Q712,220 704,216 Q688,208 678,190 Q672,172 684,148 Z"
+              fill="url(#snowG)"/>
+        <!-- Snow highlight (bright left face) -->
+        <path d="M684,148 Q698,128 710,118 L720,110 Q712,125 708,150
+                 Q700,170 696,190 Q688,208 684,190 Q678,172 684,148 Z"
+              fill="white" opacity="0.52"/>
+        <!-- Snow shadow (blue right face) -->
+        <path d="M720,110 L730,118 Q742,128 756,148 Q768,172 762,190
+                 Q752,208 736,216 Q728,220 720,221
+                 Q720,205 724,190 Q730,170 734,150 L720,110 Z"
+              fill="#C0D4EA" opacity="0.40"/>
+        <!-- Snow detail texture (small ridge lines) -->
+        <path d="M704,155 Q712,138 720,130 Q728,138 736,155" stroke="white" stroke-width="1.2" fill="none" opacity="0.55"/>
+        <path d="M698,170 Q710,150 720,145 Q730,150 742,170" stroke="white" stroke-width="0.8" fill="none" opacity="0.40"/>
+
+        <!-- ── ATMOSPHERIC BASE MIST ── -->
+        <g filter="url(#f-mist)" opacity="0.70">
+          <ellipse cx="720" cy="490" rx="400" ry="70" fill="white"/>
+        </g>
+        <g filter="url(#f-mist)" opacity="0.35">
+          <ellipse cx="450" cy="510" rx="280" ry="55" fill="#F0E8F4"/>
+          <ellipse cx="990" cy="508" rx="270" ry="52" fill="#F0E8F4"/>
+        </g>
+
+        <!-- ── GROUND / MEADOW ── -->
+        <path d="M0,578 Q360,552 720,566 Q1080,552 1440,578 L1440,700 L0,700 Z"
+              fill="url(#groundG)"/>
+        <!-- Subtle ground detail: light/shadow variation -->
+        <path d="M0,595 Q240,578 480,588 Q720,578 960,588 Q1200,578 1440,590 L1440,700 L0,700 Z"
+              fill="#A8BC90" opacity="0.35"/>
+
+        <!-- ── LAKE ── -->
+        <path d="M120,618 Q720,598 1320,618 L1440,650 L0,650 Z"
+              fill="url(#lakeG)" opacity="0.88"/>
+        <!-- Lake sky reflection gradient (lighter near horizon) -->
+        <path d="M250,622 Q720,608 1190,622 L1300,645 L140,645 Z"
+              fill="#D0E4F0" opacity="0.50"/>
+        <!-- Lake water surface shimmer lines -->
+        <g opacity="0.18">
+          <path d="M200,628 Q720,622 1240,628" stroke="white" stroke-width="1.5" fill="none"/>
+          <path d="M300,633 Q720,628 1140,633" stroke="white" stroke-width="1" fill="none"/>
+          <path d="M380,638 Q720,634 1060,638" stroke="white" stroke-width="0.8" fill="none"/>
+        </g>
+
+        <!-- Fuji lake reflection (subtle, rippled) -->
+        <g filter="url(#f-ripple)" opacity="0.32">
+          <path d="M634,650 L720,610 L806,650 Z" fill="#7898B8"/>
+          <path d="M660,645 L720,618 L780,645 Z" fill="#90ACCA"/>
+        </g>
+
+        <!-- ── CHERRY TREES LEFT ── -->
+
+        <!-- Tree L3 (small, leftmost) -->
+        <g>
+          <path d="M70,612 L70,562 Q66,548 58,540" stroke="#8B6E52" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M70,575 Q60,558 52,552" stroke="#8B6E52" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M70,572 Q80,558 88,552" stroke="#8B6E52" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <g filter="url(#f-paint)">
+            <ellipse cx="70"  cy="551" rx="22" ry="18" fill="#FFCAD8" opacity="0.85"/>
+            <ellipse cx="54"  cy="559" rx="17" ry="13" fill="#FFD0D8" opacity="0.80"/>
+            <ellipse cx="87"  cy="556" rx="18" ry="13" fill="#FFBEC8" opacity="0.82"/>
+            <ellipse cx="68"  cy="538" rx="16" ry="12" fill="#FFD4DE" opacity="0.76"/>
+            <ellipse cx="82"  cy="542" rx="13" ry="10" fill="#FFC0CC" opacity="0.78"/>
+            <ellipse cx="56"  cy="544" rx="13" ry="10" fill="#FFCAD4" opacity="0.74"/>
+            <circle cx="46"   cy="556" r="6"  fill="#FFD4DE" opacity="0.68"/>
+            <circle cx="92"   cy="552" r="5"  fill="#FFC0CC" opacity="0.70"/>
+            <circle cx="68"   cy="528" r="5"  fill="#FFCCD6" opacity="0.65"/>
+          </g>
+        </g>
+
         <!-- Tree L2 -->
         <g>
-          <rect x="272" y="560" width="7" height="54" fill="#9B7A5A" rx="2"/>
-          <line x1="275" y1="578" x2="252" y2="561" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="275" cy="545" r="23" fill="#FFD0D8" opacity="0.85"/>
-          <circle cx="256" cy="555" r="17" fill="#FFC0CC" opacity="0.80"/>
-          <circle cx="294" cy="550" r="19" fill="#FFD4DC" opacity="0.82"/>
-        </g>
-        <!-- Tree L3 (small) -->
-        <g>
-          <rect x="70" y="566" width="6" height="46" fill="#9B7A5A" rx="2"/>
-          <circle cx="70" cy="552" r="19" fill="#FFCAD8" opacity="0.82"/>
-          <circle cx="54" cy="561" r="14" fill="#FFD0D8" opacity="0.77"/>
-          <circle cx="86" cy="557" r="15" fill="#FFBCC8" opacity="0.80"/>
+          <path d="M272,612 L272,558 Q268,538 258,528" stroke="#8B6E52" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M272,570 Q258,548 244,540" stroke="#8B6E52" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M272,568 Q286,548 298,540" stroke="#8B6E52" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <path d="M272,578 Q285,565 298,560" stroke="#8B6E52" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <g filter="url(#f-paint)">
+            <ellipse cx="272" cy="543" rx="27" ry="22" fill="#FFD0D8" opacity="0.86"/>
+            <ellipse cx="252" cy="552" rx="21" ry="16" fill="#FFBCCA" opacity="0.82"/>
+            <ellipse cx="294" cy="548" rx="22" ry="17" fill="#FFD4DC" opacity="0.84"/>
+            <ellipse cx="268" cy="528" rx="18" ry="14" fill="#FFC8D2" opacity="0.79"/>
+            <ellipse cx="286" cy="532" rx="16" ry="12" fill="#FFD0DA" opacity="0.77"/>
+            <ellipse cx="254" cy="536" rx="15" ry="11" fill="#FFBEC8" opacity="0.75"/>
+            <ellipse cx="275" cy="558" rx="14" ry="10" fill="#FFCAD4" opacity="0.72"/>
+            <ellipse cx="240" cy="546" rx="13" ry="9"  fill="#FFD8E0" opacity="0.68"/>
+            <ellipse cx="306" cy="542" rx="13" ry="9"  fill="#FFC0CC" opacity="0.70"/>
+            <circle cx="244" cy="558" r="7"  fill="#FFD0DA" opacity="0.65"/>
+            <circle cx="300" cy="556" r="6"  fill="#FFCCD6" opacity="0.67"/>
+            <circle cx="265" cy="518" r="6"  fill="#FFD4DE" opacity="0.62"/>
+            <circle cx="284" cy="521" r="5"  fill="#FFB8C4" opacity="0.65"/>
+          </g>
         </g>
 
-        <!-- ── Cherry trees RIGHT ── -->
-        <!-- Tree R1 (largest) -->
+        <!-- Tree L1 (largest, focal left tree) -->
         <g>
-          <rect x="1283" y="544" width="9" height="68" fill="#9B7A5A" rx="3"/>
-          <line x1="1287" y1="570" x2="1259" y2="548" stroke="#9B7A5A" stroke-width="5" stroke-linecap="round"/>
-          <line x1="1287" y1="564" x2="1317" y2="543" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="1287" cy="524" r="34" fill="#FFC0CC" opacity="0.88"/>
-          <circle cx="1261" cy="537" r="25" fill="#FFD0D8" opacity="0.82"/>
-          <circle cx="1315" cy="531" r="27" fill="#FFC8D4" opacity="0.84"/>
-          <circle cx="1277" cy="506" r="21" fill="#FFCAD8" opacity="0.76"/>
-          <circle cx="1301" cy="504" r="19" fill="#FFB4C4" opacity="0.80"/>
+          <!-- Trunk + branches -->
+          <path d="M152,612 L152,548 Q148,524 136,514" stroke="#8B6E52" stroke-width="9" fill="none" stroke-linecap="round"/>
+          <path d="M152,565 Q136,544 120,536" stroke="#8B6E52" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M152,560 Q170,540 186,532" stroke="#8B6E52" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          <path d="M152,575 Q168,564 182,560" stroke="#8B6E52" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <path d="M152,572 Q134,564 118,562" stroke="#8B6E52" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <!-- Dense blossom cloud -->
+          <g filter="url(#f-paint)">
+            <!-- Large base shapes -->
+            <ellipse cx="152" cy="512" rx="40" ry="34" fill="#FFC0CC" opacity="0.84"/>
+            <ellipse cx="130" cy="524" rx="30" ry="25" fill="#FFD0D8" opacity="0.81"/>
+            <ellipse cx="176" cy="518" rx="32" ry="26" fill="#FFBFCB" opacity="0.83"/>
+            <ellipse cx="148" cy="496" rx="26" ry="21" fill="#FFD5DE" opacity="0.79"/>
+            <ellipse cx="170" cy="500" rx="24" ry="19" fill="#FFC8D4" opacity="0.81"/>
+            <ellipse cx="128" cy="506" rx="23" ry="18" fill="#FFD2DC" opacity="0.77"/>
+            <!-- Medium shapes -->
+            <ellipse cx="158" cy="530" rx="20" ry="15" fill="#FFBCC8" opacity="0.78"/>
+            <ellipse cx="140" cy="510" rx="18" ry="14" fill="#FFD8E2" opacity="0.73"/>
+            <ellipse cx="178" cy="510" rx="19" ry="14" fill="#FFC0CC" opacity="0.77"/>
+            <ellipse cx="155" cy="488" rx="18" ry="14" fill="#FFD4DE" opacity="0.71"/>
+            <ellipse cx="168" cy="493" rx="17" ry="12" fill="#FFB8C6" opacity="0.75"/>
+            <ellipse cx="138" cy="494" rx="16" ry="12" fill="#FFCAD4" opacity="0.73"/>
+            <ellipse cx="115" cy="516" rx="18" ry="13" fill="#FFD0DA" opacity="0.70"/>
+            <ellipse cx="192" cy="522" rx="16" ry="12" fill="#FFC4CE" opacity="0.72"/>
+            <ellipse cx="114" cy="530" rx="15" ry="10" fill="#FFD5DE" opacity="0.66"/>
+            <ellipse cx="192" cy="534" rx="14" ry="10" fill="#FFBCCA" opacity="0.68"/>
+            <!-- Small highlight puffs -->
+            <ellipse cx="145" cy="478" rx="14" ry="10" fill="#FFE0E8" opacity="0.65"/>
+            <ellipse cx="164" cy="480" rx="13" ry="9"  fill="#FFD8E2" opacity="0.63"/>
+            <ellipse cx="148" cy="535" rx="12" ry="8"  fill="#FFE4EC" opacity="0.60"/>
+            <!-- Individual blossom dots -->
+            <circle cx="108" cy="514" r="6"  fill="#FFD0DA" opacity="0.70"/>
+            <circle cx="200" cy="518" r="5"  fill="#FFC8D4" opacity="0.68"/>
+            <circle cx="146" cy="474" r="6"  fill="#FFD5DE" opacity="0.65"/>
+            <circle cx="173" cy="477" r="5"  fill="#FFB8C6" opacity="0.68"/>
+            <circle cx="196" cy="508" r="5"  fill="#FFCAD4" opacity="0.65"/>
+            <circle cx="108" cy="526" r="5"  fill="#FFD0D8" opacity="0.62"/>
+          </g>
         </g>
+
+        <!-- ── CHERRY TREES RIGHT ── -->
+
+        <!-- Tree R3 (small, rightmost) -->
+        <g>
+          <path d="M1364,612 L1364,562 Q1368,548 1376,540" stroke="#8B6E52" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M1364,575 Q1374,558 1382,552" stroke="#8B6E52" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M1364,572 Q1354,558 1346,552" stroke="#8B6E52" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <g filter="url(#f-paint)">
+            <ellipse cx="1364" cy="551" rx="22" ry="18" fill="#FFCAD8" opacity="0.85"/>
+            <ellipse cx="1380" cy="559" rx="17" ry="13" fill="#FFD0D8" opacity="0.80"/>
+            <ellipse cx="1347" cy="556" rx="18" ry="13" fill="#FFBEC8" opacity="0.82"/>
+            <ellipse cx="1366" cy="538" rx="16" ry="12" fill="#FFD4DE" opacity="0.76"/>
+            <ellipse cx="1352" cy="542" rx="13" ry="10" fill="#FFC0CC" opacity="0.78"/>
+            <ellipse cx="1378" cy="544" rx="13" ry="10" fill="#FFCAD4" opacity="0.74"/>
+            <circle cx="1388" cy="556" r="6"  fill="#FFD4DE" opacity="0.68"/>
+            <circle cx="1342" cy="552" r="5"  fill="#FFC0CC" opacity="0.70"/>
+            <circle cx="1366" cy="528" r="5"  fill="#FFCCD6" opacity="0.65"/>
+          </g>
+        </g>
+
         <!-- Tree R2 -->
         <g>
-          <rect x="1161" y="560" width="7" height="54" fill="#9B7A5A" rx="2"/>
-          <line x1="1164" y1="578" x2="1141" y2="561" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="1164" cy="545" r="23" fill="#FFD0D8" opacity="0.85"/>
-          <circle cx="1145" cy="555" r="17" fill="#FFC0CC" opacity="0.80"/>
-          <circle cx="1183" cy="550" r="19" fill="#FFD4DC" opacity="0.82"/>
-        </g>
-        <!-- Tree R3 (small) -->
-        <g>
-          <rect x="1364" y="566" width="6" height="46" fill="#9B7A5A" rx="2"/>
-          <circle cx="1364" cy="552" r="19" fill="#FFCAD8" opacity="0.82"/>
-          <circle cx="1348" cy="561" r="14" fill="#FFD0D8" opacity="0.77"/>
-          <circle cx="1380" cy="557" r="15" fill="#FFBCC8" opacity="0.80"/>
-        </g>
-
-        <!-- ── Torii gate ── -->
-        <g>
-          <rect x="697" y="496" width="11" height="82" fill="#CC3333" rx="4"/>
-          <rect x="732" y="496" width="11" height="82" fill="#CC3333" rx="4"/>
-          <path d="M683,504 Q720,487 757,504" stroke="#CC3333" stroke-width="14" fill="none" stroke-linecap="round"/>
-          <rect x="691" y="520" width="58" height="8" fill="#CC3333" rx="2"/>
+          <path d="M1162,612 L1162,558 Q1166,538 1176,528" stroke="#8B6E52" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M1162,570 Q1176,548 1190,540" stroke="#8B6E52" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M1162,568 Q1148,548 1136,540" stroke="#8B6E52" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <g filter="url(#f-paint)">
+            <ellipse cx="1162" cy="543" rx="27" ry="22" fill="#FFD0D8" opacity="0.86"/>
+            <ellipse cx="1182" cy="552" rx="21" ry="16" fill="#FFBCCA" opacity="0.82"/>
+            <ellipse cx="1140" cy="548" rx="22" ry="17" fill="#FFD4DC" opacity="0.84"/>
+            <ellipse cx="1166" cy="528" rx="18" ry="14" fill="#FFC8D2" opacity="0.79"/>
+            <ellipse cx="1148" cy="532" rx="16" ry="12" fill="#FFD0DA" opacity="0.77"/>
+            <ellipse cx="1180" cy="536" rx="15" ry="11" fill="#FFBEC8" opacity="0.75"/>
+            <ellipse cx="1163" cy="558" rx="14" ry="10" fill="#FFCAD4" opacity="0.72"/>
+            <ellipse cx="1194" cy="546" rx="13" ry="9"  fill="#FFD8E0" opacity="0.68"/>
+            <ellipse cx="1128" cy="542" rx="13" ry="9"  fill="#FFC0CC" opacity="0.70"/>
+            <circle cx="1130" cy="556" r="7"  fill="#FFD0DA" opacity="0.65"/>
+            <circle cx="1196" cy="554" r="6"  fill="#FFCCD6" opacity="0.67"/>
+          </g>
         </g>
 
-        <!-- ── Drifting clouds ── -->
-        <g class="cloud-a" opacity="0.92">
-          <ellipse cx="248" cy="190" rx="82" ry="28" fill="white"/>
-          <ellipse cx="295" cy="173" rx="58" ry="23" fill="white"/>
-          <ellipse cx="202" cy="182" rx="50" ry="20" fill="white"/>
+        <!-- Tree R1 (largest, focal right tree) -->
+        <g>
+          <path d="M1288,612 L1288,548 Q1292,524 1304,514" stroke="#8B6E52" stroke-width="9" fill="none" stroke-linecap="round"/>
+          <path d="M1288,565 Q1304,544 1320,536" stroke="#8B6E52" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M1288,560 Q1270,540 1254,532" stroke="#8B6E52" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          <path d="M1288,575 Q1272,564 1258,560" stroke="#8B6E52" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <path d="M1288,572 Q1306,564 1322,562" stroke="#8B6E52" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g filter="url(#f-paint)">
+            <ellipse cx="1288" cy="512" rx="40" ry="34" fill="#FFC0CC" opacity="0.84"/>
+            <ellipse cx="1310" cy="524" rx="30" ry="25" fill="#FFD0D8" opacity="0.81"/>
+            <ellipse cx="1264" cy="518" rx="32" ry="26" fill="#FFBFCB" opacity="0.83"/>
+            <ellipse cx="1292" cy="496" rx="26" ry="21" fill="#FFD5DE" opacity="0.79"/>
+            <ellipse cx="1270" cy="500" rx="24" ry="19" fill="#FFC8D4" opacity="0.81"/>
+            <ellipse cx="1312" cy="506" rx="23" ry="18" fill="#FFD2DC" opacity="0.77"/>
+            <ellipse cx="1282" cy="530" rx="20" ry="15" fill="#FFBCC8" opacity="0.78"/>
+            <ellipse cx="1300" cy="510" rx="18" ry="14" fill="#FFD8E2" opacity="0.73"/>
+            <ellipse cx="1262" cy="510" rx="19" ry="14" fill="#FFC0CC" opacity="0.77"/>
+            <ellipse cx="1285" cy="488" rx="18" ry="14" fill="#FFD4DE" opacity="0.71"/>
+            <ellipse cx="1272" cy="493" rx="17" ry="12" fill="#FFB8C6" opacity="0.75"/>
+            <ellipse cx="1302" cy="494" rx="16" ry="12" fill="#FFCAD4" opacity="0.73"/>
+            <ellipse cx="1325" cy="516" rx="18" ry="13" fill="#FFD0DA" opacity="0.70"/>
+            <ellipse cx="1248" cy="522" rx="16" ry="12" fill="#FFC4CE" opacity="0.72"/>
+            <ellipse cx="1284" cy="535" rx="12" ry="8"  fill="#FFE4EC" opacity="0.60"/>
+            <circle cx="1332" cy="514" r="6"  fill="#FFD0DA" opacity="0.70"/>
+            <circle cx="1240" cy="518" r="5"  fill="#FFC8D4" opacity="0.68"/>
+            <circle cx="1294" cy="474" r="6"  fill="#FFD5DE" opacity="0.65"/>
+            <circle cx="1267" cy="477" r="5"  fill="#FFB8C6" opacity="0.68"/>
+          </g>
         </g>
-        <g class="cloud-b" opacity="0.82">
-          <ellipse cx="1098" cy="164" rx="94" ry="31" fill="white"/>
-          <ellipse cx="1152" cy="145" rx="65" ry="25" fill="white"/>
-          <ellipse cx="1047" cy="157" rx="58" ry="22" fill="white"/>
+
+        <!-- ── TORII GATE ── -->
+        <g filter="url(#f-torii-glow)">
+          <!-- Posts with slight shadow -->
+          <rect x="701" y="500" width="11" height="80" fill="#AA2222" rx="4"/>
+          <rect x="728" y="500" width="11" height="80" fill="#AA2222" rx="4"/>
+          <rect x="703" y="500" width="5"  height="80" fill="#CC3333" rx="3"/>
+          <rect x="730" y="500" width="5"  height="80" fill="#CC3333" rx="3"/>
+          <!-- Top curved beam -->
+          <path d="M686,508 Q720,490 754,508" stroke="#AA2222" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M688,508 Q720,492 752,508" stroke="#CC3333" stroke-width="9"  fill="none" stroke-linecap="round"/>
+          <!-- Under beam -->
+          <rect x="697" y="524" width="46" height="8" fill="#AA2222" rx="2"/>
+          <rect x="699" y="524" width="42" height="5" fill="#CC3333" rx="2"/>
         </g>
-        <g class="cloud-c" opacity="0.72">
-          <ellipse cx="560" cy="248" rx="70" ry="24" fill="white"/>
-          <ellipse cx="602" cy="232" rx="46" ry="19" fill="white"/>
-          <ellipse cx="520" cy="241" rx="40" ry="17" fill="white"/>
+
+        <!-- ── SCATTERED PETALS (near trees, on ground) ── -->
+        <g opacity="0.55">
+          <ellipse cx="108" cy="585" rx="4" ry="2.5" fill="#FFB8C6" transform="rotate(-20,108,585)"/>
+          <ellipse cx="195" cy="580" rx="3.5" ry="2" fill="#FFD0D8" transform="rotate(15,195,580)"/>
+          <ellipse cx="240" cy="590" rx="4" ry="2" fill="#FFBCC8" transform="rotate(-35,240,590)"/>
+          <ellipse cx="1250" cy="582" rx="4" ry="2.5" fill="#FFB8C6" transform="rotate(25,1250,582)"/>
+          <ellipse cx="1338" cy="588" rx="3.5" ry="2" fill="#FFD0D8" transform="rotate(-18,1338,588)"/>
+          <ellipse cx="1205" cy="592" rx="4" ry="2" fill="#FFBCC8" transform="rotate(40,1205,592)"/>
+          <ellipse cx="155" cy="594" rx="3" ry="2" fill="#FFCCD4" transform="rotate(10,155,594)"/>
+          <ellipse cx="1290" cy="596" rx="3" ry="2" fill="#FFCCD4" transform="rotate(-10,1290,596)"/>
         </g>
-      </svg>
+
+      </svg><!-- /#fuji-svg -->
 
       <!-- Birds -->
       <div id="birds-layer"></div>
-
-      <!-- Falling sakura petals -->
+      <!-- Falling petals -->
       <div id="entry-sakura"></div>
-    </div>
 
-    <!-- Form overlay -->
+    </div><!-- /#entry-bg -->
+
+    <!-- ── Entry form ── -->
     <div id="entry-form">
       <div class="entry-card">
         <p class="entry-eyebrow">✿ 桜の季節に ✿</p>
@@ -206,7 +484,6 @@
   ═══════════════════════════════════════ -->
   <div id="main-page" hidden>
 
-    <!-- Ambient sakura background -->
     <div id="main-sakura"></div>
 
     <!-- ── HERO ── -->
@@ -215,10 +492,12 @@
         <p class="hero-pre">お誕生日おめでとうございます</p>
         <h1 class="hero-name">Imane</h1>
         <div class="hero-line"></div>
-        <blockquote class="hero-quote">
-          "Like the cherry blossom that blooms once and makes the whole world pause —
-          you are the kind of beauty that cannot be described, only felt."
-        </blockquote>
+        <p class="hero-quote">
+          I really value that you have a good heart and are such a caring person.
+          Whenever I'm dealing with a rough day or feeling worried, you give me hope
+          and make my day brighter just by talking to me. Your emotional support means
+          more than you know, and it makes me feel like I truly matter to you.
+        </p>
       </div>
       <div class="scroll-cue">
         <span>Scroll</span>
@@ -251,10 +530,10 @@
                 <p class="back-icon">✉</p>
                 <h3 class="back-title">From the Heart</h3>
                 <p class="back-text">
-                  Every morning I am grateful for you — for your laugh, your warmth,
-                  the way you see the world. You make ordinary days feel like something
-                  from a beautiful dream. I hope you know how deeply, completely,
-                  endlessly you are loved.
+                  Waking up knowing you're in my life is the best part of my day.
+                  I always look forward to talking to you, spending time with you,
+                  and just seeing you. I love hearing about how your day goes.
+                  I hope you know how deeply I love you.
                 </p>
               </div>
             </div>
@@ -277,11 +556,11 @@
                 <p class="back-icon">✿</p>
                 <h3 class="back-title">Things I Adore About You</h3>
                 <ul class="adore-list">
-                  <li>The way your eyes light up when you're excited</li>
-                  <li>Your kindness — it radiates without effort</li>
-                  <li>How you make everyone around you feel seen</li>
-                  <li>Your strength, even when you think no one notices</li>
-                  <li>The little things: your laugh, your voice, just you</li>
+                  <li>The way your eyes soften when you listen to me</li>
+                  <li>Your good heart — it shows in everything you do, without you even trying</li>
+                  <li>How you make me feel seen and understood, especially when I'm anxious</li>
+                  <li>Your quiet strength, which gives me hope when I'm having a hard day</li>
+                  <li>The simple moments: hearing your voice, seeing your smile, just being with you</li>
                 </ul>
               </div>
             </div>
@@ -304,9 +583,8 @@
                 <p class="back-icon">🌸</p>
                 <h3 class="back-title">For This New Year</h3>
                 <p class="back-text wish">
-                  May this year bring you everything your heart has quietly wished for.<br><br>
-                  May you bloom the way sakura blooms —<br>
-                  fully, beautifully, and without apology.<br><br>
+                  You deserve every beautiful thing this year has to offer —
+                  every good day, every quiet moment of peace, every reason to smile.<br><br>
                   <em>Happy Birthday, Imane. With all my love. ♥</em>
                 </p>
               </div>
