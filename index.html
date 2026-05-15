@@ -1,327 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, Imane ✨</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=IM+Fell+English:ital@0;1&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Imane ✿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;900&family=Shippori+Mincho:wght@400;700&family=M+PLUS+Rounded+1c:wght@300;400&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- ░░ LOADER ░░ -->
-  <div id="loader">
-    <div class="loader-title-text">Happy Birthday, Imane</div>
-    <div class="loader-bar"><div class="loader-fill" id="loader-fill"></div></div>
-    <div class="loader-sub-text">Preparing your story…</div>
-  </div>
-
-  <!-- ░░ MUSIC ░░ -->
+  <!-- MUSIC -->
   <audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg" />
   </audio>
   <button id="music-btn" class="muted" aria-label="Toggle music">
     <span id="music-icon">♪</span>
   </button>
 
-  <!-- ════════════════════════════════════════
-       1. HERO
-  ════════════════════════════════════════ -->
-  <section id="hero">
+  <!-- ═══════════════════════════════════
+       ENTRY PAGE
+  ═══════════════════════════════════════ -->
+  <div id="entry-page">
 
-    <!-- Three.js particle canvas (behind landscape) -->
-    <canvas id="hero-canvas"></canvas>
+    <div id="entry-bg">
 
-    <!-- SVG Ghibli Landscape (no sky rect — sky comes from CSS) -->
-    <svg class="landscape"
-         viewBox="0 0 1440 900"
-         preserveAspectRatio="xMidYMid slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="forestGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#0e3522"/>
-          <stop offset="100%" stop-color="#051410"/>
-        </linearGradient>
-        <radialGradient id="moonGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stop-color="#fff8e1"/>
-          <stop offset="55%"  stop-color="#ffd54f" stop-opacity="0.85"/>
-          <stop offset="100%" stop-color="#ff8f00" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="spiritGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stop-color="#c8ffcc"/>
-          <stop offset="100%" stop-color="#a0ffb0" stop-opacity="0"/>
-        </radialGradient>
-        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+      <!-- Fuji + sky + trees (base layer) -->
+      <svg id="fuji-svg" viewBox="0 0 1440 700"
+           preserveAspectRatio="xMidYMax slice"
+           xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#B4D0E8"/>
+            <stop offset="32%"  stop-color="#D0BCDA"/>
+            <stop offset="62%"  stop-color="#EDD0C4"/>
+            <stop offset="100%" stop-color="#F5E0D0"/>
+          </linearGradient>
+          <linearGradient id="fujiG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#9AB4CC"/>
+            <stop offset="100%" stop-color="#6E90A8"/>
+          </linearGradient>
+          <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#EEE8F2" stop-opacity="0.8"/>
+          </linearGradient>
+          <linearGradient id="lakeG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#C4D8E8"/>
+            <stop offset="100%" stop-color="#D8EEF8"/>
+          </linearGradient>
+          <linearGradient id="hillG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#B8C8A4"/>
+            <stop offset="100%" stop-color="#C8D8B4"/>
+          </linearGradient>
+          <filter id="softBlur">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+          </filter>
+        </defs>
 
-      <!-- Crescent moon -->
-      <g filter="url(#glow)">
-        <circle cx="1170" cy="115" r="58" fill="url(#moonGrad)"/>
-        <circle cx="1190" cy="100" r="53" fill="#18083a" opacity="0.88"/>
-      </g>
+        <!-- Sky -->
+        <rect width="1440" height="700" fill="url(#skyG)"/>
 
-      <!-- Distant haze cloud (behind mountains) -->
-      <g class="cloud-c" opacity="0.2">
-        <ellipse cx="500" cy="340" rx="130" ry="38" fill="#f0b898"/>
-        <ellipse cx="565" cy="318" rx="90"  ry="30" fill="#f0b898"/>
-        <ellipse cx="430" cy="330" rx="75"  ry="26" fill="#f0b898"/>
-      </g>
+        <!-- Distant hills (misty) -->
+        <path d="M0,530 Q240,492 480,510 Q720,490 960,508 Q1200,490 1440,510 L1440,700 L0,700 Z"
+              fill="#C0AECB" opacity="0.38"/>
 
-      <!-- Far mountains — dark purple -->
-      <path d="M-10,605 L80,390 L145,462 L225,318 L308,445 L405,290 L488,418
-               L572,338 L665,468 L765,298 L858,428 L955,282 L1055,418
-               L1152,302 L1252,430 L1358,340 L1450,395 L1450,905 L-10,905 Z"
-            fill="#1e0940" opacity="0.95"/>
+        <!-- Mount Fuji body -->
+        <path d="M460,470 L720,110 L980,470 Z"
+              fill="url(#fujiG)"/>
 
-      <!-- Second mountain range -->
-      <path d="M-10,660 L68,495 L148,565 L245,438 L360,548 L462,428 L562,538
-               L680,405 L792,525 L902,395 L1012,518 L1122,405 L1235,518
-               L1342,428 L1450,488 L1450,905 L-10,905 Z"
-            fill="#150c32" opacity="0.95"/>
+        <!-- Snow cap -->
+        <path d="M676,148 Q720,110 764,148 Q750,192 726,202 Q720,204 714,202 Q690,192 676,148 Z"
+              fill="url(#snowG)"/>
 
-      <!-- Howl's Moving Castle -->
-      <g class="castle-wrap" filter="url(#softGlow)">
-        <rect x="574" y="255" width="170" height="108" rx="4" fill="#291545"/>
-        <rect x="502" y="280" width="82"  height="83"  rx="3" fill="#221240"/>
-        <rect x="734" y="265" width="92"  height="98"  rx="3" fill="#221240"/>
-        <rect x="816" y="282" width="54"  height="81"  rx="2" fill="#1c0f36"/>
-        <rect x="518" y="242" width="34"  height="48"  rx="2" fill="#291545"/>
-        <polygon points="518,242 552,242 535,208" fill="#3a1e5c"/>
-        <rect x="585" y="200" width="38"  height="62"  rx="2" fill="#291545"/>
-        <polygon points="585,200 623,200 604,162" fill="#3a1e5c"/>
-        <rect x="645" y="172" width="48"  height="92"  rx="2" fill="#321858"/>
-        <polygon points="643,172 695,172 669,128" fill="#4a2872"/>
-        <line x1="669" y1="128" x2="669" y2="112" stroke="#5a3880" stroke-width="2"/>
-        <polygon points="669,112 685,120 669,128" fill="#7a4a99" opacity="0.8"/>
-        <rect x="710" y="208" width="36"  height="58"  rx="2" fill="#291545"/>
-        <polygon points="710,208 746,208 728,172" fill="#3a1e5c"/>
-        <rect x="756" y="230" width="32"  height="48"  rx="2" fill="#291545"/>
-        <polygon points="756,230 788,230 772,200" fill="#3a1e5c"/>
-        <rect x="830" y="258" width="26"  height="38"  rx="2" fill="#1c0f36"/>
-        <polygon points="830,258 856,258 843,234" fill="#2a1845"/>
-        <!-- lit windows -->
-        <rect x="595" y="270" width="20" height="26" rx="3" fill="#ffd54f" opacity="0.9" filter="url(#glow)"/>
-        <rect x="634" y="270" width="20" height="26" rx="3" fill="#ffb300" opacity="0.88" filter="url(#glow)"/>
-        <rect x="673" y="270" width="20" height="26" rx="3" fill="#ffd54f" opacity="0.9" filter="url(#glow)"/>
-        <rect x="528" y="296" width="16" height="20" rx="2" fill="#ffa726" opacity="0.78" filter="url(#glow)"/>
-        <rect x="746" y="285" width="16" height="20" rx="2" fill="#ffd54f" opacity="0.78" filter="url(#glow)"/>
-        <rect x="828" y="298" width="14" height="18" rx="2" fill="#ffa726" opacity="0.68" filter="url(#glow)"/>
-        <rect x="660" y="208" width="16" height="20" rx="2" fill="#ffe082" opacity="0.75" filter="url(#glow)"/>
-        <!-- walking legs -->
-        <line x1="608" y1="363" x2="580" y2="432" stroke="#1a0930" stroke-width="13" stroke-linecap="round"/>
-        <line x1="644" y1="363" x2="648" y2="438" stroke="#1a0930" stroke-width="13" stroke-linecap="round"/>
-        <line x1="682" y1="363" x2="714" y2="425" stroke="#1a0930" stroke-width="12" stroke-linecap="round"/>
-        <line x1="718" y1="363" x2="752" y2="430" stroke="#1a0930" stroke-width="12" stroke-linecap="round"/>
-        <ellipse cx="580" cy="432" rx="10" ry="5" fill="#120622" opacity="0.6"/>
-        <ellipse cx="648" cy="438" rx="10" ry="5" fill="#120622" opacity="0.6"/>
-        <ellipse cx="714" cy="425" rx="10" ry="5" fill="#120622" opacity="0.6"/>
-        <ellipse cx="752" cy="430" rx="10" ry="5" fill="#120622" opacity="0.6"/>
-        <!-- smoke -->
-        <ellipse cx="669" cy="115" rx="14" ry="8"  fill="#3a2060" opacity="0.45"/>
-        <ellipse cx="660" cy="100" rx="11" ry="7"  fill="#3a2060" opacity="0.32"/>
-        <ellipse cx="665" cy="87"  rx="9"  ry="6"  fill="#3a2060" opacity="0.20"/>
-      </g>
+        <!-- Fuji misty lower base -->
+        <path d="M360,520 Q460,470 720,482 Q980,470 1080,520 L1440,540 L0,540 Z"
+              fill="#8AA8C0" opacity="0.30"/>
 
-      <!-- Mid clouds -->
-      <g class="cloud-a" opacity="0.38">
-        <ellipse cx="180" cy="465" rx="108" ry="30" fill="#ee9870"/>
-        <ellipse cx="245" cy="443" rx="76"  ry="24" fill="#ee9870"/>
-        <ellipse cx="115" cy="455" rx="65"  ry="22" fill="#ee9870"/>
-      </g>
-      <g class="cloud-b" opacity="0.32">
-        <ellipse cx="920" cy="492" rx="135" ry="34" fill="#e57a52"/>
-        <ellipse cx="992" cy="468" rx="96"  ry="27" fill="#e57a52"/>
-        <ellipse cx="845" cy="480" rx="84"  ry="26" fill="#e57a52"/>
-      </g>
+        <!-- Ground / meadow -->
+        <path d="M0,578 Q360,552 720,566 Q1080,552 1440,578 L1440,700 L0,700 Z"
+              fill="url(#hillG)"/>
 
-      <!-- Left forest -->
-      <path d="M-10,740 C25,705 55,685 80,710 C100,672 125,658 148,688
-               C168,648 192,638 218,668 C240,645 268,632 298,662
-               C325,638 362,622 400,658 C438,632 478,620 508,655
-               L508,905 L-10,905 Z" fill="url(#forestGrad)"/>
-      <!-- Right forest -->
-      <path d="M932,740 C962,705 995,680 1022,712 C1045,672 1072,650 1098,682
-               C1120,645 1148,632 1175,665 C1198,640 1228,625 1258,658
-               C1285,634 1318,620 1348,655 C1375,630 1408,618 1438,645
-               L1450,658 L1450,905 L932,905 Z" fill="url(#forestGrad)"/>
+        <!-- Lake -->
+        <path d="M140,615 Q720,595 1300,615 L1440,645 L0,645 Z"
+              fill="url(#lakeG)" opacity="0.85"/>
 
-      <!-- Rolling hills -->
-      <path d="M-10,795 Q170,730 340,768 Q520,705 700,748
-               Q880,705 1060,748 Q1240,705 1450,738 L1450,905 L-10,905 Z"
-            fill="#1a4830"/>
-      <path d="M-10,845 Q200,812 400,832 Q605,800 810,828
-               Q1010,796 1215,822 Q1355,800 1450,812 L1450,905 L-10,905 Z"
-            fill="#0f3320"/>
-      <path d="M-10,875 Q300,860 600,870 Q900,855 1200,867
-               Q1355,858 1450,862 L1450,905 L-10,905 Z"
-            fill="#071810"/>
+        <!-- Fuji lake reflection (very subtle) -->
+        <path d="M628,636 L720,604 L812,636 Z"
+              fill="#98B8CC" opacity="0.25"/>
 
-      <!-- Flower accents -->
-      <g opacity="0.72">
-        <circle cx="98"   cy="869" r="3"   fill="#ff79a8"/>
-        <circle cx="112"  cy="863" r="2"   fill="#ffc66e"/>
-        <circle cx="88"   cy="861" r="2.5" fill="#ff79a8"/>
-        <circle cx="210"  cy="873" r="3"   fill="#ffd54f"/>
-        <circle cx="225"  cy="865" r="2"   fill="#ff79a8"/>
-        <circle cx="358"  cy="870" r="3"   fill="#ff79a8"/>
-        <circle cx="373"  cy="864" r="2.5" fill="#ffd54f"/>
-        <circle cx="505"  cy="875" r="3"   fill="#ffc66e"/>
-        <circle cx="655"  cy="870" r="2.5" fill="#ff79a8"/>
-        <circle cx="805"  cy="872" r="3"   fill="#ffd54f"/>
-        <circle cx="950"  cy="868" r="2"   fill="#ff79a8"/>
-        <circle cx="1108" cy="873" r="3"   fill="#ffc66e"/>
-        <circle cx="1258" cy="868" r="2.5" fill="#ff79a8"/>
-        <circle cx="1388" cy="870" r="3"   fill="#ffd54f"/>
-      </g>
+        <!-- ── Cherry trees LEFT ── -->
+        <!-- Tree L1 (largest) -->
+        <g>
+          <rect x="148" y="544" width="9" height="68" fill="#9B7A5A" rx="3"/>
+          <line x1="152" y1="570" x2="124" y2="548" stroke="#9B7A5A" stroke-width="5" stroke-linecap="round"/>
+          <line x1="152" y1="564" x2="182" y2="543" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="152" cy="524" r="34" fill="#FFC0CC" opacity="0.88"/>
+          <circle cx="126" cy="537" r="25" fill="#FFD0D8" opacity="0.82"/>
+          <circle cx="180" cy="531" r="27" fill="#FFC8D4" opacity="0.84"/>
+          <circle cx="142" cy="506" r="21" fill="#FFCAD8" opacity="0.76"/>
+          <circle cx="166" cy="504" r="19" fill="#FFB4C4" opacity="0.80"/>
+        </g>
+        <!-- Tree L2 -->
+        <g>
+          <rect x="272" y="560" width="7" height="54" fill="#9B7A5A" rx="2"/>
+          <line x1="275" y1="578" x2="252" y2="561" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="275" cy="545" r="23" fill="#FFD0D8" opacity="0.85"/>
+          <circle cx="256" cy="555" r="17" fill="#FFC0CC" opacity="0.80"/>
+          <circle cx="294" cy="550" r="19" fill="#FFD4DC" opacity="0.82"/>
+        </g>
+        <!-- Tree L3 (small) -->
+        <g>
+          <rect x="70" y="566" width="6" height="46" fill="#9B7A5A" rx="2"/>
+          <circle cx="70" cy="552" r="19" fill="#FFCAD8" opacity="0.82"/>
+          <circle cx="54" cy="561" r="14" fill="#FFD0D8" opacity="0.77"/>
+          <circle cx="86" cy="557" r="15" fill="#FFBCC8" opacity="0.80"/>
+        </g>
 
-      <!-- Spirit orbs -->
-      <g filter="url(#glow)">
-        <circle class="spirit"  cx="308"  cy="758" r="9"   fill="url(#spiritGlow)"/>
-        <circle class="spirit"  cx="318"  cy="752" r="4.5" fill="rgba(210,255,220,0.9)"/>
-        <circle class="spirit2" cx="1112" cy="762" r="7"   fill="url(#spiritGlow)"/>
-        <circle class="spirit2" cx="1120" cy="757" r="3.5" fill="rgba(210,255,220,0.9)"/>
-        <circle class="spirit3" cx="710"  cy="770" r="6"   fill="url(#spiritGlow)"/>
-        <circle class="spirit3" cx="717"  cy="765" r="3"   fill="rgba(210,255,220,0.9)"/>
-      </g>
-    </svg>
+        <!-- ── Cherry trees RIGHT ── -->
+        <!-- Tree R1 (largest) -->
+        <g>
+          <rect x="1283" y="544" width="9" height="68" fill="#9B7A5A" rx="3"/>
+          <line x1="1287" y1="570" x2="1259" y2="548" stroke="#9B7A5A" stroke-width="5" stroke-linecap="round"/>
+          <line x1="1287" y1="564" x2="1317" y2="543" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="1287" cy="524" r="34" fill="#FFC0CC" opacity="0.88"/>
+          <circle cx="1261" cy="537" r="25" fill="#FFD0D8" opacity="0.82"/>
+          <circle cx="1315" cy="531" r="27" fill="#FFC8D4" opacity="0.84"/>
+          <circle cx="1277" cy="506" r="21" fill="#FFCAD8" opacity="0.76"/>
+          <circle cx="1301" cy="504" r="19" fill="#FFB4C4" opacity="0.80"/>
+        </g>
+        <!-- Tree R2 -->
+        <g>
+          <rect x="1161" y="560" width="7" height="54" fill="#9B7A5A" rx="2"/>
+          <line x1="1164" y1="578" x2="1141" y2="561" stroke="#9B7A5A" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="1164" cy="545" r="23" fill="#FFD0D8" opacity="0.85"/>
+          <circle cx="1145" cy="555" r="17" fill="#FFC0CC" opacity="0.80"/>
+          <circle cx="1183" cy="550" r="19" fill="#FFD4DC" opacity="0.82"/>
+        </g>
+        <!-- Tree R3 (small) -->
+        <g>
+          <rect x="1364" y="566" width="6" height="46" fill="#9B7A5A" rx="2"/>
+          <circle cx="1364" cy="552" r="19" fill="#FFCAD8" opacity="0.82"/>
+          <circle cx="1348" cy="561" r="14" fill="#FFD0D8" opacity="0.77"/>
+          <circle cx="1380" cy="557" r="15" fill="#FFBCC8" opacity="0.80"/>
+        </g>
 
-    <!-- Hero text -->
-    <div class="hero-content">
-      <p class="pre-title">A Story Written in Starlight</p>
-      <div class="title-wrap">
-        <h1 class="title-line-1">Happy Birthday</h1>
-        <h1 class="title-line-2">Imane</h1>
-      </div>
-      <div class="title-divider"></div>
-      <p class="hero-sub">This day was made for you &nbsp;✦</p>
+        <!-- ── Torii gate ── -->
+        <g>
+          <rect x="697" y="496" width="11" height="82" fill="#CC3333" rx="4"/>
+          <rect x="732" y="496" width="11" height="82" fill="#CC3333" rx="4"/>
+          <path d="M683,504 Q720,487 757,504" stroke="#CC3333" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <rect x="691" y="520" width="58" height="8" fill="#CC3333" rx="2"/>
+        </g>
+
+        <!-- ── Drifting clouds ── -->
+        <g class="cloud-a" opacity="0.92">
+          <ellipse cx="248" cy="190" rx="82" ry="28" fill="white"/>
+          <ellipse cx="295" cy="173" rx="58" ry="23" fill="white"/>
+          <ellipse cx="202" cy="182" rx="50" ry="20" fill="white"/>
+        </g>
+        <g class="cloud-b" opacity="0.82">
+          <ellipse cx="1098" cy="164" rx="94" ry="31" fill="white"/>
+          <ellipse cx="1152" cy="145" rx="65" ry="25" fill="white"/>
+          <ellipse cx="1047" cy="157" rx="58" ry="22" fill="white"/>
+        </g>
+        <g class="cloud-c" opacity="0.72">
+          <ellipse cx="560" cy="248" rx="70" ry="24" fill="white"/>
+          <ellipse cx="602" cy="232" rx="46" ry="19" fill="white"/>
+          <ellipse cx="520" cy="241" rx="40" ry="17" fill="white"/>
+        </g>
+      </svg>
+
+      <!-- Birds -->
+      <div id="birds-layer"></div>
+
+      <!-- Falling sakura petals -->
+      <div id="entry-sakura"></div>
     </div>
 
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-chevron"></div>
-    </div>
-  </section>
-
-
-  <!-- ════════════════════════════════════════
-       2. MESSAGES
-  ════════════════════════════════════════ -->
-  <section id="messages">
-    <div class="messages-inner">
-
-      <div class="section-header">
-        <p class="eyebrow">For You, Always</p>
-        <h2 class="section-heading">Words From the Heart</h2>
-      </div>
-
-      <article class="message-card">
-        <span class="card-icon">✦</span>
-        <blockquote class="card-text">
-          "In every world the spirits have ever woven — across every enchanted sky,
-          every ancient forest, every golden field stretching past the horizon —
-          there is only one you. And no story, no matter how beautiful,
-          has ever deserved you as much as this one does."
-        </blockquote>
-        <div class="card-deco"></div>
-      </article>
-
-      <article class="message-card">
-        <span class="card-icon">✿</span>
-        <blockquote class="card-text">
-          "Like the lanterns drifting above the spirit world — quiet, glowing,
-          impossible to ignore — you light every room you walk into.
-          Your warmth is not just seen. It is felt deep in the bones,
-          the way magic is felt before it is ever understood."
-        </blockquote>
-        <div class="card-deco"></div>
-      </article>
-
-      <article class="message-card">
-        <span class="card-icon">❋</span>
-        <blockquote class="card-text">
-          "Howl searched kingdoms and crossed every sky —
-          and still, I think he would have stopped mid-flight if he had ever met you.
-          Some people make the whole world pause.
-          You, Imane, are one of those rare, luminous people."
-        </blockquote>
-        <div class="card-deco"></div>
-      </article>
-
-      <article class="message-card">
-        <span class="card-icon">❧</span>
-        <blockquote class="card-text">
-          "The ancient forest spirits whisper to those who are worthy.
-          They carry the names of rare souls to the roots of the oldest trees,
-          and the trees carry them all the way to the sea.
-          I believe they have always known yours."
-        </blockquote>
-        <div class="card-deco"></div>
-      </article>
-
-      <article class="message-card">
-        <span class="card-icon">✵</span>
-        <blockquote class="card-text">
-          "Another year around a sun that has never once shone on anyone quite like you.
-          You are my favourite adventure, my favourite place to return to,
-          my favourite story in a world full of stories.
-          Happy Birthday, Imane — today and every single day."
-        </blockquote>
-        <div class="card-deco"></div>
-      </article>
-
-    </div>
-  </section>
-
-
-  <!-- ════════════════════════════════════════
-       3. FINALE
-  ════════════════════════════════════════ -->
-  <section id="finale">
-    <canvas id="finale-canvas"></canvas>
-
-    <!-- Rising lanterns -->
-    <div class="lanterns">
-      <div class="lantern" style="left:6%;  animation:lanternRise 14s ease-in infinite 0s">
-        <svg viewBox="0 0 50 80" width="36" height="57"><defs><radialGradient id="lg0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffee58"/><stop offset="100%" stop-color="#ff6f00"/></radialGradient></defs><rect x="9" y="14" width="32" height="46" rx="7" fill="url(#lg0)" opacity="0.88"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#e64a19"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#e64a19"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.52"/></svg>
-      </div>
-      <div class="lantern" style="left:20%; animation:lanternRise 17s ease-in infinite 2.5s">
-        <svg viewBox="0 0 50 80" width="27" height="43"><rect x="9" y="14" width="32" height="46" rx="7" fill="#ff8f00" opacity="0.82"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#e64a19"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#e64a19"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.48"/></svg>
-      </div>
-      <div class="lantern" style="left:38%; animation:lanternRise 19s ease-in infinite 5s">
-        <svg viewBox="0 0 50 80" width="44" height="70"><rect x="9" y="14" width="32" height="46" rx="7" fill="#ffb300" opacity="0.92"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#e64a19"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#e64a19"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.58"/></svg>
-      </div>
-      <div class="lantern" style="left:55%; animation:lanternRise 13s ease-in infinite 1s">
-        <svg viewBox="0 0 50 80" width="30" height="48"><rect x="9" y="14" width="32" height="46" rx="7" fill="#ff6d00" opacity="0.82"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#bf360c"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#bf360c"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.5"/></svg>
-      </div>
-      <div class="lantern" style="left:72%; animation:lanternRise 16s ease-in infinite 7s">
-        <svg viewBox="0 0 50 80" width="40" height="63"><rect x="9" y="14" width="32" height="46" rx="7" fill="#ffca28" opacity="0.88"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#e64a19"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#e64a19"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.55"/></svg>
-      </div>
-      <div class="lantern" style="left:88%; animation:lanternRise 15s ease-in infinite 3.5s">
-        <svg viewBox="0 0 50 80" width="28" height="44"><rect x="9" y="14" width="32" height="46" rx="7" fill="#ff8f00" opacity="0.8"/><rect x="17" y="4" width="16" height="12" rx="3" fill="#e64a19"/><rect x="22" y="58" width="6" height="14" rx="2" fill="#e64a19"/><ellipse cx="25" cy="37" rx="11" ry="15" fill="#fff9c4" opacity="0.48"/></svg>
+    <!-- Form overlay -->
+    <div id="entry-form">
+      <div class="entry-card">
+        <p class="entry-eyebrow">✿ 桜の季節に ✿</p>
+        <h1 class="entry-title">Happy Birthday</h1>
+        <p class="entry-name-jp">イマネへ</p>
+        <div class="entry-line"></div>
+        <div class="date-gate">
+          <p class="date-prompt">今日は何日ですか？</p>
+          <p class="date-hint">What is today's date?</p>
+          <div class="date-row">
+            <input type="date" id="date-input" />
+          </div>
+          <button id="enter-btn">Enter &nbsp;✿</button>
+          <p id="date-feedback" class="date-feedback" aria-live="polite"></p>
+        </div>
       </div>
     </div>
 
-    <div class="finale-content">
-      <h2 class="finale-name">Imane</h2>
-      <p class="finale-subtitle">Happy Birthday, my love</p>
-      <hr class="finale-divider">
-      <p class="finale-message">
-        May this year carry you to every beautiful thing<br>
-        you have ever quietly wished for.<br>
-        May you feel, today and always,<br>
-        how deeply and completely you are loved.
-      </p>
-      <span class="finale-heart">♥</span>
-    </div>
-  </section>
+  </div><!-- /#entry-page -->
+
+
+  <!-- ═══════════════════════════════════
+       MAIN PAGE
+  ═══════════════════════════════════════ -->
+  <div id="main-page" hidden>
+
+    <!-- Ambient sakura background -->
+    <div id="main-sakura"></div>
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+      <div class="hero-inner">
+        <p class="hero-pre">お誕生日おめでとうございます</p>
+        <h1 class="hero-name">Imane</h1>
+        <div class="hero-line"></div>
+        <blockquote class="hero-quote">
+          "Like the cherry blossom that blooms once and makes the whole world pause —
+          you are the kind of beauty that cannot be described, only felt."
+        </blockquote>
+      </div>
+      <div class="scroll-cue">
+        <span>Scroll</span>
+        <div class="scroll-chevron"></div>
+      </div>
+    </section>
+
+    <!-- ── SURPRISE BOXES ── -->
+    <section id="boxes-section">
+      <div class="section-hd">
+        <p class="section-eyebrow">サプライズ</p>
+        <h2 class="section-title">Three Surprises For You</h2>
+        <p class="section-hint">Tap each gift to reveal ✿</p>
+      </div>
+
+      <div class="boxes-grid">
+
+        <!-- Box 1 — A Letter -->
+        <div class="gift-box" data-n="1" tabindex="0" role="button" aria-label="Open surprise box one">
+          <div class="box-inner">
+            <div class="box-front box-1">
+              <div class="ribbon-h"></div>
+              <div class="ribbon-v"></div>
+              <div class="box-bow">✿</div>
+              <span class="box-num">一</span>
+              <span class="box-tag">A Letter</span>
+            </div>
+            <div class="box-back">
+              <div class="back-inner">
+                <p class="back-icon">✉</p>
+                <h3 class="back-title">From the Heart</h3>
+                <p class="back-text">
+                  Every morning I am grateful for you — for your laugh, your warmth,
+                  the way you see the world. You make ordinary days feel like something
+                  from a beautiful dream. I hope you know how deeply, completely,
+                  endlessly you are loved.
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Tap to open ✿</p>
+        </div>
+
+        <!-- Box 2 — About You -->
+        <div class="gift-box" data-n="2" tabindex="0" role="button" aria-label="Open surprise box two">
+          <div class="box-inner">
+            <div class="box-front box-2">
+              <div class="ribbon-h"></div>
+              <div class="ribbon-v"></div>
+              <div class="box-bow">✿</div>
+              <span class="box-num">二</span>
+              <span class="box-tag">About You</span>
+            </div>
+            <div class="box-back">
+              <div class="back-inner">
+                <p class="back-icon">✿</p>
+                <h3 class="back-title">Things I Adore About You</h3>
+                <ul class="adore-list">
+                  <li>The way your eyes light up when you're excited</li>
+                  <li>Your kindness — it radiates without effort</li>
+                  <li>How you make everyone around you feel seen</li>
+                  <li>Your strength, even when you think no one notices</li>
+                  <li>The little things: your laugh, your voice, just you</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Tap to open ✿</p>
+        </div>
+
+        <!-- Box 3 — A Wish -->
+        <div class="gift-box" data-n="3" tabindex="0" role="button" aria-label="Open surprise box three">
+          <div class="box-inner">
+            <div class="box-front box-3">
+              <div class="ribbon-h"></div>
+              <div class="ribbon-v"></div>
+              <div class="box-bow">✿</div>
+              <span class="box-num">三</span>
+              <span class="box-tag">A Wish</span>
+            </div>
+            <div class="box-back">
+              <div class="back-inner">
+                <p class="back-icon">🌸</p>
+                <h3 class="back-title">For This New Year</h3>
+                <p class="back-text wish">
+                  May this year bring you everything your heart has quietly wished for.<br><br>
+                  May you bloom the way sakura blooms —<br>
+                  fully, beautifully, and without apology.<br><br>
+                  <em>Happy Birthday, Imane. With all my love. ♥</em>
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Tap to open ✿</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CLOSING ── -->
+    <section id="closing">
+      <div class="closing-inner">
+        <div class="closing-petals">✿ &nbsp; ✿ &nbsp; ✿</div>
+        <h2 class="closing-name">Imane</h2>
+        <p class="closing-jp">あなたを愛してる</p>
+        <p class="closing-en">I love you</p>
+        <span class="closing-heart">♥</span>
+      </div>
+    </section>
+
+  </div><!-- /#main-page -->
 
   <script type="module" src="/src/main.js"></script>
 </body>
